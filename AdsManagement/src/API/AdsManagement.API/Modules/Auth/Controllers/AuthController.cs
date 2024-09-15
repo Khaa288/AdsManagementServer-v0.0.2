@@ -1,5 +1,8 @@
-﻿using AdsManagement.Modules.Auth.Application.Contracts;
+﻿using AdsManagement.API.Configurations.Attributes;
+using AdsManagement.Modules.Auth.Application.Contracts;
 using Application;
+using Application.Commands.Login;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AdsManagement.API.Modules.Auth.Controllers;
@@ -17,6 +20,16 @@ public class AuthController : ControllerBase
 
     [HttpGet("")]
     public async Task<IActionResult> GetAuthenticatedUser()
+    {
+        var user = await _authModule.ExecuteCommandAsync(new LoginCommand("tuong", "123"));
+
+        return Ok(user);
+    }
+    
+    [Authorize]
+    //[HasPrivilege("BinhDinh")]
+    [HttpGet("/authenticate")]
+    public async Task<IActionResult> GetUser()
     {
         var user = await _authModule.ExecuteQueryAsync(new TestQuery("Hihi"));
 

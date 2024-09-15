@@ -6,7 +6,7 @@ namespace AdsManagement.API.Configurations.Extensions;
 
 internal static class SwaggerExtensions
 {
-    internal static IServiceCollection AddSwaggerDocumentation(this IServiceCollection services)
+    internal static IServiceCollection AddApiSwaggerDocumentation(this IServiceCollection services)
     {
         services.AddSwaggerGen(options =>
         {

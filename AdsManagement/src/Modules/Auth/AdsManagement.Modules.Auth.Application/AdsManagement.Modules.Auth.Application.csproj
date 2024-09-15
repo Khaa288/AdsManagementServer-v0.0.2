@@ -10,6 +10,7 @@
     <ItemGroup>
       <ProjectReference Include="..\..\..\BuildingBlocks\AdsManagement.BuildingBlocks.Application\AdsManagement.BuildingBlocks.Application.csproj" />
       <ProjectReference Include="..\..\..\BuildingBlocks\AdsManagement.BuildingBlocks.Domain\AdsManagement.BuildingBlocks.Domain.csproj" />
+      <ProjectReference Include="..\AdsManagement.Modules.Auth.Domain\AdsManagement.Modules.Auth.Domain.csproj" />
     </ItemGroup>
 
 </Project>

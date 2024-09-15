@@ -1,4 +1,4 @@
-﻿using AdsManagement.BuildingBlocks.Domain;
+﻿using AdsManagement.BuildingBlocks.Domain.DomainEntities;
 
 namespace AdsManagement.Modules.Auth.Domain.Entities;
 
@@ -11,4 +11,9 @@ public class Officer : Entity
     public string? PhoneNumber { get; set; }
     public string? PasswordHash { get; set; }
     public int WardId { get; set; }
+    
+    public Role Role { get; set; }
+    public Guid RoleId { get; set; }
+    
+    public List<Privilege> Privileges { get; set; }
 }

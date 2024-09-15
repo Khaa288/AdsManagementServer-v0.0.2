@@ -2,6 +2,8 @@
 using AdsManagement.Modules.Auth.Infrastructure.Configuration.DataAccess;
 using AdsManagement.Modules.Auth.Infrastructure.Configuration.Logging;
 using AdsManagement.Modules.Auth.Infrastructure.Configuration.Mediator;
+using AdsManagement.Modules.Auth.Infrastructure.Configuration.Token;
+using AdsManagement.Modules.Auth.Infrastructure.Token;
 using Autofac;
 using ILogger = Serilog.ILogger;
 
@@ -12,7 +14,8 @@ namespace AdsManagement.Modules.Auth.Infrastructure.Configuration;
         private static IContainer _container;
         public static void Initialize(
             string connectionString,
-            ILogger logger
+            ILogger logger,
+            TokensConfiguration tokensConfiguration
             // EmailsConfiguration emailsConfiguration,
             // IEventsBus eventsBus
             )
@@ -21,6 +24,7 @@ namespace AdsManagement.Modules.Auth.Infrastructure.Configuration;
 
             ConfigureCompositionRoot(
                 connectionString, 
+                tokensConfiguration,
                 // emailsConfiguration, 
                 // eventsBus,
                 moduleLogger
@@ -31,6 +35,7 @@ namespace AdsManagement.Modules.Auth.Infrastructure.Configuration;
 
         private static void ConfigureCompositionRoot(
             string connectionString,
+            TokensConfiguration tokensConfiguration,
             // EmailsConfiguration emailsConfiguration,
             // IEventsBus eventsBus,
             ILogger logger)
@@ -43,6 +48,7 @@ namespace AdsManagement.Modules.Auth.Infrastructure.Configuration;
             
             containerBuilder.RegisterModule(new DataAccessModule(connectionString, loggerFactory));
             containerBuilder.RegisterModule(new MediatorModule());
+            containerBuilder.RegisterModule(new TokenModule(tokensConfiguration));
             
             // containerBuilder.RegisterModule(new EmailModule(emailsConfiguration));
             // containerBuilder.RegisterModule(new EventsBusModule(eventsBus));

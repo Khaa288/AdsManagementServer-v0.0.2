@@ -4,7 +4,7 @@ namespace AdsManagement.Modules.Auth.Domain;
 
 public interface IAuthRepository
 {
-    Task<Officer?> GetByOfficerIdAsync(Guid officerId);
-    
+    Task<Officer?> GetOfficerByIdAsync(Guid officerId);
+    Task<Officer?> GetOfficerWithRolesPrivilegesByIdAsync(Guid officerId);
     // Add more here
 }

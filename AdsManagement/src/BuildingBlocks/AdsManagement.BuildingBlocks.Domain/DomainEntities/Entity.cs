@@ -1,6 +1,6 @@
 ﻿using AdsManagement.BuildingBlocks.Domain.DomainEvents;
 
-namespace AdsManagement.BuildingBlocks.Domain;
+namespace AdsManagement.BuildingBlocks.Domain.DomainEntities;
 
 public class Entity
 {

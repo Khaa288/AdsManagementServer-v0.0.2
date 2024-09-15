@@ -1,4 +1,4 @@
-﻿namespace AdsManagement.API.Common;
+﻿namespace AdsManagement.BuildingBlocks.Domain.DomainConstraints;
 
 public class HeaderConstraints
 {

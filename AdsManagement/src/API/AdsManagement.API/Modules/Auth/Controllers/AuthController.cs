@@ -1,14 +1,18 @@
-﻿using AdsManagement.API.Configurations.Attributes;
+﻿using AdsManagement.API.Common;
+using AdsManagement.API.Configurations.Attributes;
+using AdsManagement.API.Modules.Auth.Dtos;
 using AdsManagement.Modules.Auth.Application.Contracts;
 using Application;
 using Application.Commands.Login;
+using Asp.Versioning;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AdsManagement.API.Modules.Auth.Controllers;
 
+[ApiVersion(ApiVersions.Version1)]
 [ApiController]
-[Route("api/auth/login")]
+[Route("api/v{version:apiVersion}/[controller]")]
 public class AuthController : ControllerBase
 {
     private readonly IAuthModule _authModule;
@@ -18,17 +22,16 @@ public class AuthController : ControllerBase
         _authModule = authModule;
     }
 
-    [HttpGet("")]
-    public async Task<IActionResult> GetAuthenticatedUser()
+    [HttpPost("login")]
+    public async Task<IActionResult> GetAuthenticatedUser(LoginRequestDto request)
     {
-        var user = await _authModule.ExecuteCommandAsync(new LoginCommand("tuong", "123"));
-
+        var user = await _authModule.ExecuteCommandAsync(new LoginCommand(request.Email, request.Password));
         return Ok(user);
     }
     
     [Authorize]
-    //[HasPrivilege("BinhDinh")]
-    [HttpGet("/authenticate")]
+    [HasPrivilege("Manage Usersss")]
+    [HttpGet("authenticate")]
     public async Task<IActionResult> GetUser()
     {
         var user = await _authModule.ExecuteQueryAsync(new TestQuery("Hihi"));

@@ -2,13 +2,11 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using AdsManagement.API.Common.Enum;
 using AdsManagement.BuildingBlocks.Domain.DomainConstraints;
+using AdsManagement.BuildingBlocks.Domain.DomainConstraints.Constants;
 using AdsManagement.BuildingBlocks.Domain.DomainConstraints.Enums;
 using AdsManagement.Modules.Auth.Application.Tokens;
 using AdsManagement.Modules.Auth.Domain.Entities;
-using Microsoft.AspNetCore.Server.IIS;
-using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
 namespace AdsManagement.Modules.Auth.Infrastructure.Token;
@@ -37,7 +35,7 @@ public class TokenService : ITokenService
             new Claim(ClaimTypes.Role, officer.Role!.RoleName),
         };
         
-        // claims.AddRange(officer.Privileges.Select(privilege => new Claim(HttpContextExtensions.PrivilegesClaimName, privilege.PrivilegeName)));
+        claims.AddRange(officer.Privileges.Select(privilege => new Claim("privileges", privilege.PrivilegeName)));
 
         claims.Add(new Claim(HeaderConstraints.TokenType, tokenType));
         

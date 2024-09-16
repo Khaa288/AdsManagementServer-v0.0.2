@@ -17,7 +17,7 @@ internal class ValidationCommandHandlerDecorator<T> : ICommandHandler<T>
         ICommandHandler<T> command)
     {
         this._validators = validators;
-        _command = command;
+        this._command = command;
     }
 
     public async Task Handle(T command, CancellationToken cancellationToken)
@@ -38,13 +38,13 @@ internal class ValidationCommandHandlerDecorator<T> : ICommandHandler<T>
 }
 
 // With Result Command
-internal class ValidationCommandHandler<T, TResult> : ICommandHandler<T, TResult>
+internal class ValidationCommandHandlerWithResultDecorator<T, TResult> : ICommandHandler<T, TResult>
     where T : ICommand<TResult>
 {
     private readonly IList<IValidator<T>> _validators;
     private readonly ICommandHandler<T, TResult> _command;
 
-    public ValidationCommandHandler(
+    public ValidationCommandHandlerWithResultDecorator(
         IList<IValidator<T>> validators,
         ICommandHandler<T, TResult> command)
     {

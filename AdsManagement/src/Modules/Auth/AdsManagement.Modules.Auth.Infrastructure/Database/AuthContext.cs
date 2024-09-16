@@ -18,6 +18,12 @@ public class AuthContext : DbContext
         _loggerFactory = loggerFactory;
     }
     
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        // optionsBuilder.UseLoggerFactory(_loggerFactory).EnableSensitiveDataLogging();
+        optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=AuthModuleDb;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False;");
+    }
+    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfiguration(new OfficerConfiguration());

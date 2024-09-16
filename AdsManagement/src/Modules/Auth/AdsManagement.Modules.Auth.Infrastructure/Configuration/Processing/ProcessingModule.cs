@@ -18,5 +18,23 @@ internal class ProcessingModule : Autofac.Module
                 .AsClosedTypesOf(typeof(IDomainEventNotification<>))
                 .InstancePerDependency()
                 .FindConstructorsWith(new AllConstructorFinder());
+            
+            // Validation without result
+            builder.RegisterGenericDecorator(
+                typeof(ValidationCommandHandlerDecorator<>),
+                typeof(ICommandHandler<>));
+            
+            // Validation with result
+            builder.RegisterGenericDecorator(
+                typeof(ValidationCommandHandlerWithResultDecorator<,>),
+                typeof(ICommandHandler<,>));
+            
+            builder.RegisterGenericDecorator(
+                typeof(UnitOfWorkCommandHandlerDecorator<>),
+                typeof(ICommandHandler<>));
+
+            builder.RegisterGenericDecorator(
+                typeof(UnitOfWorkCommandHandlerWithResultDecorator<,>),
+                typeof(ICommandHandler<,>));
         }
     }

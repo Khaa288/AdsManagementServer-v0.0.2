@@ -26,7 +26,6 @@
 
     <ItemGroup>
       <Folder Include="Modules\Advertisement\" />
-      <Folder Include="Modules\Auth\Dtos\" />
       <Folder Include="Modules\Licensing\" />
       <Folder Include="Modules\Report\" />
     </ItemGroup>

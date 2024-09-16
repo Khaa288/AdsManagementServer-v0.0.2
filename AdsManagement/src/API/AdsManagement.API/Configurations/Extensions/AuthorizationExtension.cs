@@ -1,6 +1,5 @@
-﻿using AdsManagement.API.Common.Enum;
-using AdsManagement.BuildingBlocks.Domain.DomainConstraints;
-
+﻿using AdsManagement.BuildingBlocks.Domain.DomainConstraints;
+using AdsManagement.BuildingBlocks.Domain.DomainConstraints.Constants;
 using Microsoft.AspNetCore.Authorization;
 
 namespace AdsManagement.API.Configurations.Extensions;

@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AdsManagement.Modules.Auth.Infrastructure.Domain.Repostitories;
 
-public class AuthRepository : IAuthRepository
+internal class AuthRepository : IAuthRepository
 {
     private readonly AuthContext _authContext;
 
-    public AuthRepository(AuthContext authContext)
+    internal AuthRepository(AuthContext authContext)
     {
         _authContext = authContext;
     }
@@ -19,12 +19,12 @@ public class AuthRepository : IAuthRepository
         return await _authContext.Officers.FindAsync(officerId);
     }
     
-    public async Task<Officer?> GetOfficerWithRolesPrivilegesByIdAsync(Guid officerId)
+    public async Task<Officer?> GetOfficerWithRolesPrivilegesByEmailAsync(string email)
     {
         return await _authContext.Officers
             .Include(o => o.Role)
             .Include(o => o.Privileges)
-            .FirstOrDefaultAsync(o => o.OfficerId == officerId);
+            .FirstOrDefaultAsync(o => o.Email == email);
     }
     
     // Add more here

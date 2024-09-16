@@ -1,4 +1,4 @@
-﻿using AdsManagement.API.Common.Enum;
+﻿using AdsManagement.BuildingBlocks.Domain.DomainConstraints.Constants;
 using AdsManagement.Modules.Auth.Application.Configuration.Commands;
 using AdsManagement.Modules.Auth.Application.Tokens;
 using AdsManagement.Modules.Auth.Domain;
@@ -19,7 +19,7 @@ public class LoginCommandHandler : ICommandHandler<LoginCommand, string>
 
     public async Task<string> Handle(LoginCommand request, CancellationToken cancellationToken)
     {
-        var officer = await _authRepository.GetOfficerWithRolesPrivilegesByIdAsync(request.Id);
+        var officer = await _authRepository.GetOfficerWithRolesPrivilegesByEmailAsync(request.Email);
 
         var tokenType = TokenTypeNames.Access;
         

@@ -1,4 +1,4 @@
-﻿namespace AdsManagement.API.Common.Enum;
+﻿namespace AdsManagement.BuildingBlocks.Domain.DomainConstraints.Constants;
 
 public static class TokenTypeNames
 {

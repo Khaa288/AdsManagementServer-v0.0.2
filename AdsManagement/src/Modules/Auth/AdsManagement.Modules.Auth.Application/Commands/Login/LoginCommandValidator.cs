@@ -9,6 +9,7 @@ public class LoginCommandValidator : AbstractValidator<LoginCommand>
     {
         RuleFor(x => x.Email)
             .NotEmpty()
+            .WithMessage("Username cannot be empty")
             .EmailAddress()
             .WithMessage("Username must be an email address")
             .MustAsync(async (request, email, cancellation) =>
@@ -20,21 +21,18 @@ public class LoginCommandValidator : AbstractValidator<LoginCommand>
 
         RuleFor(x => x.Password)
             .NotEmpty()
-            .WithMessage("Password Cannot be empty")
+            .WithMessage("Password cannot be empty")
             .MustAsync(async (request, password, cancellation) =>
             {
-                var user = await authRepository.GetOfficerWithRolesPrivilegesByEmailAsync(request.Email);
-            
-                if (user is null)
-                {
-                    return true;
-                }
-                
-                return user!.PasswordHash == request.Password;
-                
+                var officer = await authRepository.GetOfficerWithRolesPrivilegesByEmailAsync(request.Email);
+
+                if (officer is not null)
+                    return officer!.PasswordHash == request.Password;
+                return false;
+
                 // // PasswordHash validation will comeback later
                 // return BCrypt.Net.BCrypt.Verify(password, user!.Password);
             })
-            .WithMessage("Invalid Password");
+            .WithMessage("Bad Credentials");
     }
 }

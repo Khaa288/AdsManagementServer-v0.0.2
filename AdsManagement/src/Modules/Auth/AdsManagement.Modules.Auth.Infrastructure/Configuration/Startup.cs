@@ -2,6 +2,7 @@
 using AdsManagement.Modules.Auth.Infrastructure.Configuration.DataAccess;
 using AdsManagement.Modules.Auth.Infrastructure.Configuration.Logging;
 using AdsManagement.Modules.Auth.Infrastructure.Configuration.Mediator;
+using AdsManagement.Modules.Auth.Infrastructure.Configuration.Processing;
 using AdsManagement.Modules.Auth.Infrastructure.Configuration.Token;
 using AdsManagement.Modules.Auth.Infrastructure.Token;
 using Autofac;
@@ -21,7 +22,7 @@ public class Startup
         // IEventsBus eventsBus
     )
     {
-        var moduleLogger = logger.ForContext("Module", "Payments");
+        var moduleLogger = logger.ForContext("Module", "Auth");
 
         ConfigureCompositionRoot(
             connectionString,
@@ -48,9 +49,10 @@ public class Startup
         var loggerFactory = new Serilog.Extensions.Logging.SerilogLoggerFactory(logger);
 
         containerBuilder.RegisterModule(new DataAccessModule(connectionString, loggerFactory));
+        containerBuilder.RegisterModule(new ProcessingModule());
         containerBuilder.RegisterModule(new MediatorModule());
         containerBuilder.RegisterModule(new TokenModule(tokensConfiguration));
-
+        
         // containerBuilder.RegisterModule(new EmailModule(emailsConfiguration));
         // containerBuilder.RegisterModule(new EventsBusModule(eventsBus));
 

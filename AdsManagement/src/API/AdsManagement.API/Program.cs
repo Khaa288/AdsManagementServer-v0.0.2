@@ -1,16 +1,11 @@
-using AdsManagement.API.Common;
 using AdsManagement.API.Configurations.Extensions;
-using AdsManagement.BuildingBlocks.Application;
-using AdsManagement.BuildingBlocks.Domain.DomainConstraints;
-using AdsManagement.Modules.Auth.Infrastructure;
-using AdsManagement.Modules.Auth.Infrastructure.Configuration;
+using AdsManagement.API.Configurations.Validations;
+using AdsManagement.BuildingBlocks.Application.Constraints;
 using AdsManagement.Modules.Auth.Infrastructure.Configuration.Auth;
 using AdsManagement.Modules.Auth.Infrastructure.Token;
-using Asp.Versioning;
+
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using Microsoft.OpenApi.Models;
-using Microsoft.AspNetCore.Mvc;
 using Serilog;
 using ILogger = Serilog.ILogger;
 
@@ -26,12 +21,14 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddControllers();
 builder.Services.AddProblemDetails();
+builder.Services.AddExceptionHandler<ApiExceptionHandler>();
 
 // Extensions
 builder.Services.AddApiSwaggerDocumentation();
 builder.Services.AddApiVersions();
 builder.Services.AddApiAuthentication(builder.Configuration);
 builder.Services.AddApiAuthorization();
+builder.Services.AddDevelopmentProblemDetails();
 
 // Registering Module 
 builder.Host
@@ -67,6 +64,9 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.UseDevelopmentProblemDetails();
+    //app.UseExceptionHandler(options => {});
+    
     app.UseSwaggerDocumentation();
     
     app.UseCors(options => options
@@ -75,6 +75,11 @@ if (app.Environment.IsDevelopment())
         .AllowAnyMethod()
         .AllowAnyHeader()
         .WithExposedHeaders(HeaderConstraints.XPagination));
+}
+else
+{
+    app.UseExceptionHandler(options => {});
+    app.UseHsts();
 }
 
 app.UseHttpsRedirection();

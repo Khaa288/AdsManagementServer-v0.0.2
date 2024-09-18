@@ -1,5 +1,5 @@
-﻿using AdsManagement.BuildingBlocks.Domain.DomainConstraints;
-using AdsManagement.BuildingBlocks.Domain.DomainConstraints.Constants;
+﻿using AdsManagement.BuildingBlocks.Application.Constraints;
+using AdsManagement.BuildingBlocks.Application.Constraints.Constants;
 using Microsoft.AspNetCore.Authorization;
 
 namespace AdsManagement.API.Configurations.Extensions;

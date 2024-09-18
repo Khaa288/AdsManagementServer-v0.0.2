@@ -1,12 +1,11 @@
-﻿using AdsManagement.BuildingBlocks.Domain.DomainConstraints.Constants;
+﻿using AdsManagement.BuildingBlocks.Application.Constraints.Constants;
 using AdsManagement.Modules.Auth.Application.Configuration.Commands;
 using AdsManagement.Modules.Auth.Application.Tokens;
 using AdsManagement.Modules.Auth.Domain;
-using AdsManagement.Modules.Auth.Domain.Entities;
 
-namespace Application.Commands.Login;
+namespace AdsManagement.Modules.Auth.Application.Commands;
 
-public class LoginCommandHandler : ICommandHandler<LoginCommand, string>
+internal class LoginCommandHandler : ICommandHandler<LoginCommand, LoginResponse>
 {
     private readonly ITokenService _tokenService;
     private readonly IAuthRepository _authRepository;
@@ -17,14 +16,14 @@ public class LoginCommandHandler : ICommandHandler<LoginCommand, string>
         _authRepository = authRepository;
     }
 
-    public async Task<string> Handle(LoginCommand request, CancellationToken cancellationToken)
+    public async Task<LoginResponse> Handle(LoginCommand request, CancellationToken cancellationToken)
     {
         var officer = await _authRepository.GetOfficerWithRolesPrivilegesByEmailAsync(request.Email);
-
+        
         var tokenType = TokenTypeNames.Access;
         
         var token = _tokenService.CreateToken(officer!, tokenType);
 
-        return token;
+        return new LoginResponse(token);
     }
 }

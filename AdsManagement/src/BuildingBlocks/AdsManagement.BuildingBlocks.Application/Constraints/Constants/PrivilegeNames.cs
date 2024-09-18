@@ -1,4 +1,4 @@
-﻿namespace AdsManagement.BuildingBlocks.Domain.DomainConstraints.Constants;
+﻿namespace AdsManagement.BuildingBlocks.Application.Constraints.Constants;
 
 public static class PrivilegeNames
 {

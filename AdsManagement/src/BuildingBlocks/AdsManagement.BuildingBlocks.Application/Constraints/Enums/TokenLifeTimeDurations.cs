@@ -1,4 +1,4 @@
-﻿namespace AdsManagement.BuildingBlocks.Domain.DomainConstraints.Enums;
+﻿namespace AdsManagement.BuildingBlocks.Application.Constraints.Enums;
 
 public enum TokenLifeTimeDurations
 {

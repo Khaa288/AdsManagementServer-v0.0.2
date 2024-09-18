@@ -2,9 +2,9 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using AdsManagement.BuildingBlocks.Domain.DomainConstraints;
-using AdsManagement.BuildingBlocks.Domain.DomainConstraints.Constants;
-using AdsManagement.BuildingBlocks.Domain.DomainConstraints.Enums;
+using AdsManagement.BuildingBlocks.Application.Constraints;
+using AdsManagement.BuildingBlocks.Application.Constraints.Constants;
+using AdsManagement.BuildingBlocks.Application.Constraints.Enums;
 using AdsManagement.Modules.Auth.Application.Tokens;
 using AdsManagement.Modules.Auth.Domain.Entities;
 using Microsoft.IdentityModel.Tokens;

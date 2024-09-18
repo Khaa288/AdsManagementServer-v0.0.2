@@ -1,8 +1,8 @@
 ﻿using AdsManagement.Modules.Auth.Application.Contracts;
 
-namespace Application.Commands.Login;
+namespace AdsManagement.Modules.Auth.Application.Commands;
 
-public class LoginCommand : CommandBase<string>
+public class LoginCommand : CommandBase<LoginResponse>
 {
     public string Email { get; }
     public string Password { get; }

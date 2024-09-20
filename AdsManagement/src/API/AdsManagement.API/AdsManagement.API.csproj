@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Asp.Versioning.Http" Version="8.1.0" />
+        <PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" Version="8.1.0" />
+        <PackageReference Include="Autofac" Version="8.1.0" />
+        <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="10.0.0" />
+        <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.10.0" />
+        <PackageReference Include="Hellang.Middleware.ProblemDetails" Version="6.5.1" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.8" />
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.8"/>
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\BuildingBlocks\AdsManagement.BuildingBlocks.Infrastructure\AdsManagement.BuildingBlocks.Infrastructure.csproj" />
+      <ProjectReference Include="..\..\Modules\Advertisement\AdsManagement.Modules.Advertisement.Infrastructure\AdsManagement.Modules.Advertisement.Infrastructure.csproj" />
+      <ProjectReference Include="..\..\Modules\Auth\AdsManagement.Modules.Auth.Infrastructure\AdsManagement.Modules.Auth.Infrastructure.csproj" />
+      <ProjectReference Include="..\..\Modules\Licensing\AdsManagement.Modules.Licensing.Infrastructure\AdsManagement.Modules.Licensing.Infrastructure.csproj" />
+      <ProjectReference Include="..\..\Modules\Report\AdsManagement.Modules.Report.Infrastructure\AdsManagement.Modules.Report.Infrastructure.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Modules\Advertisement\" />
+      <Folder Include="Modules\Licensing\" />
+      <Folder Include="Modules\Report\" />
+    </ItemGroup>
+
+</Project>

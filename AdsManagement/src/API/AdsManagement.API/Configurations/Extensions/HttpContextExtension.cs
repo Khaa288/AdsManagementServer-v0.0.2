@@ -2,7 +2,7 @@
 
 namespace AdsManagement.API.Configurations.Extensions;
 
-public static class HttpContextExtensions
+internal static class HttpContextExtensions
 {
     public const string PrivilegesClaimName = "privileges";
 

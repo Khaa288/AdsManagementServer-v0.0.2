@@ -1,5 +1,6 @@
 ﻿using AdsManagement.Modules.Auth.Application.Tokens;
 using AdsManagement.Modules.Auth.Infrastructure.Token;
+
 using Autofac;
 using Microsoft.Extensions.Configuration;
 

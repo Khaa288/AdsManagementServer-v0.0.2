@@ -1,6 +1,7 @@
 ﻿using AdsManagement.Modules.Auth.Application.Contracts;
 using AdsManagement.Modules.Auth.Infrastructure.Configuration;
 using AdsManagement.Modules.Auth.Infrastructure.Configuration.Processing;
+
 using Autofac;
 using MediatR;
 

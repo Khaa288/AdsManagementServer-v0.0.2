@@ -2,6 +2,7 @@ using AdsManagement.API.Configurations.Extensions;
 using AdsManagement.API.Configurations.Validations;
 using AdsManagement.BuildingBlocks.Application.Constraints;
 using AdsManagement.Modules.Auth.Infrastructure.Configuration.Auth;
+using AdsManagement.Modules.Auth.Infrastructure.EventBus;
 using AdsManagement.Modules.Auth.Infrastructure.Token;
 
 using Autofac;
@@ -47,6 +48,12 @@ builder.Host
             builder.Configuration["Jwt:Audience"],
             builder.Configuration["Jwt:Key"]
         );
+
+        var eventBussConfiguration = new EventBusConfiguration(
+            builder.Configuration["EventBus:HostName"],   
+            builder.Configuration["EventBus:Username"],   
+            builder.Configuration["EventBus:Password"]
+        );
         
         // Register module here
         container.RegisterModule(new AuthAutoFacModule());
@@ -54,8 +61,9 @@ builder.Host
         // Initialize module here
         AdsManagement.Modules.Auth.Infrastructure.Configuration.Startup.Initialize(
             builder.Configuration.GetConnectionString(builder.Configuration["Databases:AuthModuleDb:Sql:ConnectionString"]),
-            logger,
-            tokensConfiguration
+            tokensConfiguration,
+            eventBussConfiguration,
+            logger
         );
     });
 

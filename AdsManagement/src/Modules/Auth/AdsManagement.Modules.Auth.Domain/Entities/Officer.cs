@@ -10,10 +10,14 @@ public class Officer : Entity
     public string? Email { get; set; }
     public string? PhoneNumber { get; set; }
     public string? PasswordHash { get; set; }
-    public int WardId { get; set; }
     
     public Role Role { get; set; }
     public Guid RoleId { get; set; }
     
+    public Ward Ward { get; set; }
+    public int WardId { get; set; }
+    
     public List<Privilege> Privileges { get; set; }
+    public List<RefreshToken> RefreshTokens { get; set; }
+    public List<Otp> Otps { get; set; }
 }

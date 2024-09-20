@@ -1,11 +1,11 @@
 ﻿using System.Reflection;
 using AdsManagement.BuildingBlocks.Infrastructure;
 using AdsManagement.Modules.Auth.Application.Configuration.Commands;
-using Application.Behaviours;
+using AdsManagement.Modules.Auth.Application.Behaviours;
+
 using Autofac;
 using Autofac.Core;
 using Autofac.Features.Variance;
-using FluentMediator.Pipelines;
 using MediatR;
 using MediatR.Pipeline;
 using FluentValidation;

@@ -1,11 +1,11 @@
 ﻿using AdsManagement.BuildingBlocks.Application;
 using AdsManagement.Modules.Auth.Application.Contracts;
+
 using FluentValidation;
 using MediatR;
 using ValidationException = FluentValidation.ValidationException;
-// using ValidationContext = FluentValidation.ValidationContext;
 
-namespace Application.Behaviours;
+namespace AdsManagement.Modules.Auth.Application.Behaviours;
 
 public class ValidationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     where TRequest : ICommand<TResponse>

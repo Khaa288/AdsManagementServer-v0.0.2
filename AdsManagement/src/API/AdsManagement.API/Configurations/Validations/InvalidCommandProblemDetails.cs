@@ -1,4 +1,5 @@
 ﻿using AdsManagement.BuildingBlocks.Application;
+
 using Microsoft.AspNetCore.Mvc;
 
 namespace AdsManagement.API.Configurations.Validations;

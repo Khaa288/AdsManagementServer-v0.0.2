@@ -15,6 +15,10 @@
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="10.0.0" />
+      <PackageReference Include="MassTransit" Version="8.2.6-develop.1999" />
+      <PackageReference Include="MassTransit.Autofac" Version="7.3.1" />
+      <PackageReference Include="MassTransit.RabbitMQ" Version="8.2.6-develop.1999" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.0-rc.1.24451.1" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0-rc.1.24451.1">
         <PrivateAssets>all</PrivateAssets>
@@ -25,5 +29,11 @@
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="AdsManagement.BuildingBlocks.Infrastructure">
+        <HintPath>..\..\..\API\AdsManagement.API\bin\Debug\net8.0\AdsManagement.BuildingBlocks.Infrastructure.dll</HintPath>
+      </Reference>
     </ItemGroup>
 </Project>

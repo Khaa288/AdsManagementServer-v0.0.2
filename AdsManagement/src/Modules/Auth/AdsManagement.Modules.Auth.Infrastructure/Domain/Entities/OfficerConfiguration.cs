@@ -1,4 +1,5 @@
 ﻿using AdsManagement.Modules.Auth.Domain.Entities;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -24,6 +25,11 @@ public class OfficerConfiguration : IEntityTypeConfiguration<Officer>
             .HasOne<Role>(o => o.Role)
             .WithOne(r => r.Officer)
             .HasForeignKey<Officer>(o => o.RoleId);
+        
+        builder
+            .HasOne<Ward>(r => r.Ward)
+            .WithOne(p => p.Officer)
+            .HasForeignKey<Officer>(o => o.WardId);
         
         builder
             .HasMany<Privilege>(r => r.Privileges)

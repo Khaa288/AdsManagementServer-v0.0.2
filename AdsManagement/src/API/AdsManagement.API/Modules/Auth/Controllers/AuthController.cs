@@ -1,10 +1,11 @@
-﻿using System.Net;
+﻿using Application;
 using AdsManagement.API.Common;
 using AdsManagement.API.Configurations.Attributes;
 using AdsManagement.API.Modules.Auth.Dtos;
 using AdsManagement.Modules.Auth.Application.Contracts;
-using Application;
 using AdsManagement.Modules.Auth.Application.Commands;
+
+using System.Net;
 using Asp.Versioning;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

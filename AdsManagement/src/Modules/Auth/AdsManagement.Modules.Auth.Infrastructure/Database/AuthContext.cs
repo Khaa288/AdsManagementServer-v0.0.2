@@ -1,5 +1,6 @@
 ﻿using AdsManagement.Modules.Auth.Domain.Entities;
 using AdsManagement.Modules.Auth.Infrastructure.Domain.Entities;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Logging;
@@ -9,6 +10,12 @@ namespace AdsManagement.Modules.Auth.Infrastructure.Database;
 public class AuthContext : DbContext
 {
     public DbSet<Officer> Officers { get; set; }
+    public DbSet<Role> Roles { get; set; }
+    public DbSet<Privilege> Privileges { get; set; }
+    public DbSet<Ward> Wards { get; set; }
+    public DbSet<District> Districts { get; set; }
+    public DbSet<Otp> Otps { get; set; }
+    public DbSet<RefreshToken> Tokens { get; set; }
     
     private readonly ILoggerFactory _loggerFactory;
     
@@ -27,6 +34,12 @@ public class AuthContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfiguration(new OfficerConfiguration());
+        modelBuilder.ApplyConfiguration(new RoleConfiguration());
+        modelBuilder.ApplyConfiguration(new PrivilegeConfiguration());
+        modelBuilder.ApplyConfiguration(new OtpConfiguration());
+        modelBuilder.ApplyConfiguration(new RefreshTokenConfiguration());
+        modelBuilder.ApplyConfiguration(new WardConfiguration());
+        modelBuilder.ApplyConfiguration(new DistrictConfiguration());
     }
 }
 

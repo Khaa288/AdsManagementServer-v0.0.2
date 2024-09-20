@@ -1,4 +1,4 @@
-﻿using AdsManagement.Modules.Auth.Domain;
+﻿using AdsManagement.Modules.Auth.Domain.Repositories;
 using FluentValidation;
 
 namespace AdsManagement.Modules.Auth.Application.Commands;
@@ -15,7 +15,8 @@ public class LoginCommandValidator : AbstractValidator<LoginCommand>
             .MustAsync(async (request, email, cancellation) =>
             {
                 var officer = await authRepository.GetOfficerWithRolesPrivilegesByEmailAsync(request.Email);
-                return officer is null;
+
+                return officer is not null;
             })
             .WithMessage("Account does not exists !");
 
@@ -25,11 +26,11 @@ public class LoginCommandValidator : AbstractValidator<LoginCommand>
             .MustAsync(async (request, password, cancellation) =>
             {
                 var officer = await authRepository.GetOfficerWithRolesPrivilegesByEmailAsync(request.Email);
-
-                if (officer is not null)
-                    return officer!.PasswordHash == request.Password;
-                return false;
-
+        
+                if (officer is null)
+                    return false;
+                return officer!.PasswordHash == request.Password;
+                
                 // // PasswordHash validation will comeback later
                 // return BCrypt.Net.BCrypt.Verify(password, user!.Password);
             })

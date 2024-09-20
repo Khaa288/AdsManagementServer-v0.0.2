@@ -1,6 +1,7 @@
-﻿using AdsManagement.Modules.Auth.Domain;
-using AdsManagement.Modules.Auth.Domain.Entities;
+﻿using AdsManagement.Modules.Auth.Domain.Entities;
+using AdsManagement.Modules.Auth.Domain.Repositories;
 using AdsManagement.Modules.Auth.Infrastructure.Database;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace AdsManagement.Modules.Auth.Infrastructure.Domain.Repostitories;
@@ -25,6 +26,11 @@ internal class AuthRepository : IAuthRepository
             .Include(o => o.Role)
             .Include(o => o.Privileges)
             .FirstOrDefaultAsync(o => o.Email == email);
+    }
+    
+    public async Task<bool> IsOfficerExistsByEmailAsync(string email)
+    {
+        return await _authContext.Officers.AnyAsync(o => o.Email == email);
     }
     
     // Add more here

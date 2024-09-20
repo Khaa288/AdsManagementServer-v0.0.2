@@ -1,6 +1,7 @@
-﻿using System.Net;
-using AdsManagement.API.Common;
+﻿using AdsManagement.API.Common;
 using AdsManagement.BuildingBlocks.Application;
+
+using System.Net;
 using Microsoft.AspNetCore.Diagnostics;
 
 namespace AdsManagement.API.Configurations.Validations;

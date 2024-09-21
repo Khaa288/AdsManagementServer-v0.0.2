@@ -1,6 +1,8 @@
-﻿namespace AdsManagement.Modules.Auth.Domain.Entities;
+﻿using AdsManagement.BuildingBlocks.Domain.DomainEntities;
 
-public class Ward
+namespace AdsManagement.Modules.Auth.Domain.Entities;
+
+public class Ward : Entity
 {
     public int WardId { get; set; }
     public string WardName { get; set; }

@@ -1,6 +1,8 @@
-﻿namespace AdsManagement.Modules.Auth.Domain.Entities;
+﻿using AdsManagement.BuildingBlocks.Domain.DomainEntities;
 
-public class Privilege
+namespace AdsManagement.Modules.Auth.Domain.Entities;
+
+public class Privilege : Entity
 {
     public Guid PrivilegeId { get; set; }
     public string PrivilegeName { get; set; }

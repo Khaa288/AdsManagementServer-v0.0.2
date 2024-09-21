@@ -1,6 +1,8 @@
-﻿namespace AdsManagement.Modules.Auth.Domain.Entities;
+﻿using AdsManagement.BuildingBlocks.Domain.DomainEntities;
 
-public class Role
+namespace AdsManagement.Modules.Auth.Domain.Entities;
+
+public class Role : Entity
 {
     public Guid RoleId { get; set; }
     public string RoleName { get; set; }

@@ -1,6 +1,8 @@
-﻿namespace AdsManagement.Modules.Auth.Domain.Entities;
+﻿using AdsManagement.BuildingBlocks.Domain.DomainEntities;
 
-public class RefreshToken
+namespace AdsManagement.Modules.Auth.Domain.Entities;
+
+public class RefreshToken : Entity
 {
     public Guid TokenId { get; set; }
     public string Secret { get; set; }

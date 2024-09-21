@@ -1,6 +1,8 @@
-﻿namespace AdsManagement.Modules.Auth.Domain.Entities;
+﻿using AdsManagement.BuildingBlocks.Domain.DomainEntities;
 
-public class District
+namespace AdsManagement.Modules.Auth.Domain.Entities;
+
+public class District : Entity
 {
     public int DistrictId { get; set; }
     public string DistrictName { get; set; }

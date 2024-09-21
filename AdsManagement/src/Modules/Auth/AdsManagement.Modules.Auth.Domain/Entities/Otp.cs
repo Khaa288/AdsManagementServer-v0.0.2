@@ -1,6 +1,8 @@
-﻿namespace AdsManagement.Modules.Auth.Domain.Entities;
+﻿using AdsManagement.BuildingBlocks.Domain.DomainEntities;
 
-public class Otp
+namespace AdsManagement.Modules.Auth.Domain.Entities;
+
+public class Otp : Entity
 {
     public Guid OtpId { get; set; }
     public int OtpType { get; set; }

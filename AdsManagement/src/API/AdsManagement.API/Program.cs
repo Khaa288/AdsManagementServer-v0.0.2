@@ -49,7 +49,7 @@ builder.Host
             builder.Configuration["Jwt:Key"]
         );
 
-        var eventBussConfiguration = new EventBusConfiguration(
+        var eventBusConfiguration = new EventBusConfiguration(
             builder.Configuration["EventBus:HostName"],   
             builder.Configuration["EventBus:Username"],   
             builder.Configuration["EventBus:Password"]
@@ -60,9 +60,9 @@ builder.Host
         
         // Initialize module here
         AdsManagement.Modules.Auth.Infrastructure.Configuration.Startup.Initialize(
-            builder.Configuration.GetConnectionString(builder.Configuration["Databases:AuthModuleDb:Sql:ConnectionString"]),
+            builder.Configuration["Databases:AuthModuleDb:Sql:ConnectionString"],
             tokensConfiguration,
-            eventBussConfiguration,
+            eventBusConfiguration,
             logger
         );
     });

@@ -10,7 +10,7 @@ internal class AuthRepository : IAuthRepository
 {
     private readonly AuthContext _authContext;
 
-    internal AuthRepository(AuthContext authContext)
+    public AuthRepository(AuthContext authContext)
     {
         _authContext = authContext;
     }

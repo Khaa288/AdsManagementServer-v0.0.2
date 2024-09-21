@@ -8,7 +8,7 @@ public class EventBusService : IEventBus
 {
     private readonly IPublishEndpoint _publishEndpoint;
 
-    public EventBusService(EventBusConfiguration configuration, IPublishEndpoint publishEndpoint)
+    public EventBusService(IPublishEndpoint publishEndpoint)
     {
         _publishEndpoint = publishEndpoint;
     }

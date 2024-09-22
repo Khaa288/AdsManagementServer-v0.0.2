@@ -1,4 +1,4 @@
-﻿using AdsManagement.BuildingBlocks.Domain.DomainEntities;
+﻿using AdsManagement.BuildingBlocks.Domain.Domain.Entities;
 
 namespace AdsManagement.Modules.Auth.Domain.Entities;
 

@@ -1,6 +1,8 @@
 using AdsManagement.API.Configurations.Extensions;
 using AdsManagement.API.Configurations.Validations;
 using AdsManagement.BuildingBlocks.Application.Constraints;
+using AdsManagement.Modules.Advertisement.Infrastructure.Configuration.Advertisement;
+using AdsManagement.Modules.Advertisement.Infrastructure.Database;
 using AdsManagement.Modules.Auth.Infrastructure.Configuration.Auth;
 using AdsManagement.Modules.Auth.Infrastructure.EventBus;
 using AdsManagement.Modules.Auth.Infrastructure.Token;
@@ -57,12 +59,26 @@ builder.Host
         
         // Register module here
         container.RegisterModule(new AuthAutoFacModule());
+        container.RegisterModule(new AdvertisementAutoFacModule());
         
         // Initialize module here
         AdsManagement.Modules.Auth.Infrastructure.Configuration.Startup.Initialize(
             builder.Configuration["Databases:AuthModuleDb:Sql:ConnectionString"],
             tokensConfiguration,
             eventBusConfiguration,
+            logger
+        );
+        
+        AdsManagement.Modules.Advertisement.Infrastructure.Configuration.Startup.Initialize(
+            new DatabaseConfiguration(
+                builder.Configuration["Databases:AdvertisementModuleDb:NoSql:MongoDb:ConnectionString"],
+                builder.Configuration["Databases:AdvertisementModuleDb:NoSql:MongoDb:DatabaseName"]
+                ),
+            new AdsManagement.Modules.Advertisement.Infrastructure.EventBus.EventBusConfiguration(
+                builder.Configuration["EventBus:HostName"],   
+                builder.Configuration["EventBus:Username"],   
+                builder.Configuration["EventBus:Password"]
+                ),
             logger
         );
     });

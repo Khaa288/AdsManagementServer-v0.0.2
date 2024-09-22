@@ -7,4 +7,18 @@
         <RootNamespace>Application</RootNamespace>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="FluentValidation" Version="11.10.0" />
+      <PackageReference Include="MediatR" Version="12.4.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\BuildingBlocks\AdsManagement.BuildingBlocks.Application\AdsManagement.BuildingBlocks.Application.csproj" />
+      <ProjectReference Include="..\AdsManagement.Modules.Advertisement.Domain\AdsManagement.Modules.Advertisement.Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Commands\" />
+    </ItemGroup>
+
 </Project>

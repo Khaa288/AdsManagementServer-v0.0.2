@@ -1,5 +1,4 @@
-﻿using AdsManagement.BuildingBlocks.Domain.Domain.Entities;
-using AdsManagement.Modules.Advertisement.Domain.Entities;
+﻿using AdsManagement.Modules.Advertisement.Domain.Entities;
 using MongoDB.Bson.Serialization;
 
 namespace AdsManagement.Modules.Advertisement.Infrastructure.Domain.Entities;
@@ -13,7 +12,6 @@ public static class AdvertisementPointConfiguration
             BsonClassMap.RegisterClassMap<AdvertisementPoint>(classMap =>
             {
                 classMap.SetIgnoreExtraElements(true);
-                classMap.SetIsRootClass(true); 
                 
                 classMap.MapField(ap => ap.PointId);
                 classMap.MapField(ap => ap.Address);

@@ -16,23 +16,30 @@ internal class AdvertisementPointRepository : IAdvertisementPointRepository
 
     public async Task<List<AdvertisementPoint>> GetAllAdvertisementPoints()
     {
-        var points =
-            await _advertisementContext.AdvertisementPointCollection.Find(Builders<AdvertisementPoint>.Filter.Empty).ToListAsync();
-        return points;
+        return await _advertisementContext
+            .AdvertisementPointCollection
+            .Find(Builders<AdvertisementPoint>.Filter.Empty)
+            .ToListAsync();
     }
 
-    public Task<AdvertisementPoint> GetAdvertisementPointByPointId(Guid pointId)
+    public async Task<AdvertisementPoint> GetAdvertisementPointByPointId(Guid pointId)
     {
-        throw new NotImplementedException();
+        return await _advertisementContext.AdvertisementPointCollection
+            .Find(filter: ap => ap.PointId.ToString() == pointId.ToString())
+            .SingleOrDefaultAsync();
     }
 
-    public Task<List<AdvertisementPoint>> GetAdvertisementPointsByWardId(int wardId)
+    public async Task<List<AdvertisementPoint>> GetAdvertisementPointsByWardId(int wardId)
     {
-        throw new NotImplementedException();
+        return await _advertisementContext.AdvertisementPointCollection
+            .Find(filter: ap => ap.Ward.WardId == wardId)
+            .ToListAsync();
     }
 
-    public Task<List<AdvertisementPoint>> GetAdvertisementPointsByDistrictId(int districtId)
+    public async Task<List<AdvertisementPoint>> GetAdvertisementPointsByDistrictId(int districtId)
     {
-        throw new NotImplementedException();
+        return await _advertisementContext.AdvertisementPointCollection
+            .Find(filter: ap => ap.District.DistrictId == districtId)
+            .ToListAsync();
     }
 }

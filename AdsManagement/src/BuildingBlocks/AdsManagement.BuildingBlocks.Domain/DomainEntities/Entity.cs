@@ -1,11 +1,11 @@
 ﻿using AdsManagement.BuildingBlocks.Domain.DomainEvents;
 
-namespace AdsManagement.BuildingBlocks.Domain.DomainEntities;
+namespace AdsManagement.BuildingBlocks.Domain.Domain.Entities;
 
 public class Entity
 {
     private List<IDomainEvent> _domainEvents;
-    public IReadOnlyCollection<IDomainEvent> DomainEvents => _domainEvents.AsReadOnly();
+    public IReadOnlyCollection<IDomainEvent> DomainEvents => _domainEvents?.AsReadOnly();
 
     public void ClearDomainEvents()
     {

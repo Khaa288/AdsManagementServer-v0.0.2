@@ -1,4 +1,5 @@
-﻿using AdsManagement.Modules.Advertisement.Domain.Entities;
+﻿using System.Linq.Expressions;
+using AdsManagement.Modules.Advertisement.Domain.Entities;
 using AdsManagement.Modules.Advertisement.Domain.Repositories;
 using AdsManagement.Modules.Advertisement.Infrastructure.Database;
 using MongoDB.Driver;
@@ -20,6 +21,22 @@ internal class AdvertisementPointRepository : IAdvertisementPointRepository
             .AdvertisementPointCollection
             .Find(Builders<AdvertisementPoint>.Filter.Empty)
             .ToListAsync();
+    }
+
+    public async Task<(List<AdvertisementPoint>, int)> GetPaginAdvertisementPoints(int pageNumber, int pageSize, Expression<Func<AdvertisementPoint,bool>>? filter)
+    {
+        var count = await _advertisementContext
+            .AdvertisementPointCollection
+            .CountDocumentsAsync(filter);
+        
+        var points =  await _advertisementContext
+            .AdvertisementPointCollection
+            .Find(filter)
+            .Skip((pageNumber-1) * pageSize)
+            .Limit(pageSize)
+            .ToListAsync();
+        
+        return (points, (int)count);
     }
 
     public async Task<AdvertisementPoint> GetAdvertisementPointByPointId(Guid pointId)

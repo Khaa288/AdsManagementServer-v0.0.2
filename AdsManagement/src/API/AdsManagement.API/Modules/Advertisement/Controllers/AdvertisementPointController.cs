@@ -1,8 +1,9 @@
 ﻿using System.Net;
 using AdsManagement.API.Common;
+using AdsManagement.API.Modules.Advertisement.Dtos;
 using AdsManagement.Modules.Advertisement.Application.Contracts;
 using AdsManagement.Modules.Advertisement.Application.Queries;
-
+using Application.Queries.GetAdvertisementPointsPagin;
 using Asp.Versioning;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,7 +25,20 @@ public class AdvertisementPointController : ControllerBase
     public async Task<IActionResult> GetAllAdvertisementPoints()
     {
         var points = await _advertisementModule.ExecuteQueryAsync(new GetAllAdvertisementPointsQuery());
-
+        return Ok(new ApiResponse { StatusCode = HttpStatusCode.OK, Result = points });
+    }
+    
+    [HttpGet("pagination")]
+    public async Task<IActionResult> GetAdvertisementPointsPagin([FromQuery] AdvertisementPointQueryRequestDto request)
+    {
+        var points = await _advertisementModule
+            .ExecuteQueryAsync(new GetAdvertisementPointsPaginQuery(
+                request.PageNumber,
+                request.PageSize,
+                request.LocationType,
+                request.AdvertisingForm,
+                request.IsPlanned
+            ));
         return Ok(new ApiResponse { StatusCode = HttpStatusCode.OK, Result = points });
     }
     
@@ -32,7 +46,6 @@ public class AdvertisementPointController : ControllerBase
     public async Task<IActionResult> GetAdvertisementPointByPointId([FromRoute] Guid pointId)
     {
         var point = await _advertisementModule.ExecuteQueryAsync(new GetAdvertisementPointQuery(pointId));
-
         return Ok(new ApiResponse { StatusCode = HttpStatusCode.OK, Result = point });
     }
     

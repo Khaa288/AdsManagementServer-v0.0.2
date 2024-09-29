@@ -11,7 +11,7 @@ public class WardConfiguration : IEntityTypeConfiguration<Ward>
         builder.ToTable("Ward");
         builder.HasKey(o => o.WardId);
         
-        builder.Property<int>("WardId").HasColumnName("WardId");
+        builder.Property<int>("WardId").HasColumnName("WardId").ValueGeneratedNever();
         builder.Property<string>("WardName").HasColumnName("WardName");
         builder.Property<int>("DistrictId").HasColumnName("DistrictId");
 

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(AuthContext))]
-    [Migration("20240920145809_InitAuthModuleDb")]
+    [Migration("20240929140651_InitAuthModuleDb")]
     partial class InitAuthModuleDb
     {
         /// <inheritdoc />
@@ -28,11 +28,8 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("AdsManagement.Modules.Auth.Domain.Entities.District", b =>
                 {
                     b.Property<int>("DistrictId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("DistrictId");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DistrictId"));
 
                     b.Property<string>("DistrictName")
                         .IsRequired()

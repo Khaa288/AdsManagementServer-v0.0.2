@@ -11,7 +11,7 @@ public class DistrictConfiguration : IEntityTypeConfiguration<District>
         builder.ToTable("District");
         builder.HasKey(o => o.DistrictId);
         
-        builder.Property<int>("DistrictId").HasColumnName("DistrictId");
+        builder.Property<int>("DistrictId").HasColumnName("DistrictId").ValueGeneratedNever();;
         builder.Property<string>("DistrictName").HasColumnName("DistrictName");
     }
 }

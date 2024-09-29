@@ -15,8 +15,7 @@ namespace Infrastructure.Migrations
                 name: "District",
                 columns: table => new
                 {
-                    DistrictId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DistrictId = table.Column<int>(type: "int", nullable: false),
                     DistrictName = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>

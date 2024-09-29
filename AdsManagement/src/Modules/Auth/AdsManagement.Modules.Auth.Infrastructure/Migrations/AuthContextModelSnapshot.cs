@@ -25,11 +25,8 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("AdsManagement.Modules.Auth.Domain.Entities.District", b =>
                 {
                     b.Property<int>("DistrictId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("DistrictId");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DistrictId"));
 
                     b.Property<string>("DistrictName")
                         .IsRequired()

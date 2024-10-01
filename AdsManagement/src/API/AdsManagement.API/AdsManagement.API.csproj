@@ -11,6 +11,11 @@
         <PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" Version="8.1.0" />
         <PackageReference Include="Autofac" Version="8.1.0" />
         <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="10.0.0" />
+<<<<<<< HEAD
+=======
+        <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.10.0" />
+        <PackageReference Include="Hellang.Middleware.ProblemDetails" Version="6.5.1" />
+>>>>>>> origin/main
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.8" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.8"/>
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
@@ -26,7 +31,10 @@
 
     <ItemGroup>
       <Folder Include="Modules\Advertisement\" />
+<<<<<<< HEAD
       <Folder Include="Modules\Auth\Dtos\" />
+=======
+>>>>>>> origin/main
       <Folder Include="Modules\Licensing\" />
       <Folder Include="Modules\Report\" />
     </ItemGroup>

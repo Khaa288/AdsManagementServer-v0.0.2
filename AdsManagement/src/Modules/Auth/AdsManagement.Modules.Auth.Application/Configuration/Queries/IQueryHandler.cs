@@ -1,4 +1,5 @@
 ﻿using AdsManagement.Modules.Auth.Application.Contracts;
+
 using MediatR;
 
 namespace AdsManagement.Modules.Auth.Application.Configuration.Queries;

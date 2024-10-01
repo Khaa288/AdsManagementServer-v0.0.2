@@ -1,14 +1,14 @@
-using AdsManagement.API.Common;
 using AdsManagement.API.Configurations.Extensions;
-using AdsManagement.BuildingBlocks.Application;
-using AdsManagement.Modules.Auth.Infrastructure;
-using AdsManagement.Modules.Auth.Infrastructure.Configuration;
+using AdsManagement.API.Configurations.Validations;
+using AdsManagement.BuildingBlocks.Application.Constraints;
+using AdsManagement.Modules.Advertisement.Infrastructure.Configuration.Advertisement;
+using AdsManagement.Modules.Advertisement.Infrastructure.Database;
 using AdsManagement.Modules.Auth.Infrastructure.Configuration.Auth;
-using Asp.Versioning;
+using AdsManagement.Modules.Auth.Infrastructure.EventBus;
+using AdsManagement.Modules.Auth.Infrastructure.Token;
+
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using Microsoft.OpenApi.Models;
-using Microsoft.AspNetCore.Mvc;
 using Serilog;
 using ILogger = Serilog.ILogger;
 
@@ -24,10 +24,14 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddControllers();
 builder.Services.AddProblemDetails();
+builder.Services.AddExceptionHandler<ApiExceptionHandler>();
 
 // Extensions
-builder.Services.AddSwaggerDocumentation();
+builder.Services.AddApiSwaggerDocumentation();
 builder.Services.AddApiVersions();
+builder.Services.AddApiAuthentication(builder.Configuration);
+builder.Services.AddApiAuthorization();
+builder.Services.AddDevelopmentProblemDetails();
 
 // Registering Module 
 builder.Host
@@ -40,13 +44,42 @@ builder.Host
                 outputTemplate:
                 "[{Timestamp:HH:mm:ss} {Level:u3}] [{Module}] [{Context}] {Message:lj}{NewLine}{Exception}")
             .CreateLogger();
+
+        var tokensConfiguration = new TokensConfiguration(
+            builder.Configuration["Jwt:Issuer"],
+            builder.Configuration["Jwt:Audience"],
+            builder.Configuration["Jwt:Key"]
+        );
+
+        var eventBusConfiguration = new EventBusConfiguration(
+            builder.Configuration["EventBus:HostName"],   
+            builder.Configuration["EventBus:Username"],   
+            builder.Configuration["EventBus:Password"]
+        );
         
         // Register module here
         container.RegisterModule(new AuthAutoFacModule());
+        container.RegisterModule(new AdvertisementAutoFacModule());
         
         // Initialize module here
         AdsManagement.Modules.Auth.Infrastructure.Configuration.Startup.Initialize(
-            builder.Configuration.GetConnectionString("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=AuthModuleDb;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False;"),
+            builder.Configuration["Databases:AuthModuleDb:Sql:ConnectionString"],
+            tokensConfiguration,
+            eventBusConfiguration,
+            logger
+        );
+        
+        AdsManagement.Modules.Advertisement.Infrastructure.Configuration.Startup.Initialize(
+            new DatabaseConfiguration(
+                builder.Configuration["Databases:AdvertisementModuleDb:NoSql:MongoDb:ConnectionString"],
+                builder.Configuration["Databases:AdvertisementModuleDb:NoSql:MongoDb:DatabaseName"]
+                ),
+            new AdsManagement.Modules.Advertisement.Infrastructure.EventBus.EventBusConfiguration(
+                builder.Configuration["EventBus:HostName"],   
+                builder.Configuration["EventBus:Username"],   
+                builder.Configuration["EventBus:Password"]
+                ),
+            builder.Configuration["Databases:AdvertisementModuleDb:NoSql:Redis:ConnectionString"],
             logger
         );
     });
@@ -56,6 +89,9 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.UseDevelopmentProblemDetails();
+    //app.UseExceptionHandler(options => {});
+    
     app.UseSwaggerDocumentation();
     
     app.UseCors(options => options
@@ -64,6 +100,11 @@ if (app.Environment.IsDevelopment())
         .AllowAnyMethod()
         .AllowAnyHeader()
         .WithExposedHeaders(HeaderConstraints.XPagination));
+}
+else
+{
+    app.UseExceptionHandler(options => {});
+    app.UseHsts();
 }
 
 app.UseHttpsRedirection();

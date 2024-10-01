@@ -1,4 +1,5 @@
 ﻿using AdsManagement.Modules.Auth.Application.Contracts;
+
 using Autofac;
 using MediatR;
 

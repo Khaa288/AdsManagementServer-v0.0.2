@@ -1,6 +1,8 @@
 ﻿using System.Reflection;
 using AdsManagement.BuildingBlocks.Infrastructure;
 using AdsManagement.Modules.Auth.Application.Configuration.Commands;
+using AdsManagement.Modules.Auth.Application.Behaviours;
+
 using Autofac;
 using Autofac.Core;
 using Autofac.Features.Variance;
@@ -51,6 +53,7 @@ public class MediatorModule : Autofac.Module
                 .FindConstructorsWith(new AllConstructorFinder());
         }
         
+        builder.RegisterGeneric(typeof(ValidationBehaviour<,>)).As(typeof(IPipelineBehavior<,>));
         builder.RegisterGeneric(typeof(RequestPostProcessorBehavior<,>)).As(typeof(IPipelineBehavior<,>));
         builder.RegisterGeneric(typeof(RequestPreProcessorBehavior<,>)).As(typeof(IPipelineBehavior<,>));
     }

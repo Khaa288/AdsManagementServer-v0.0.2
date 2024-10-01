@@ -1,4 +1,5 @@
 ﻿using AdsManagement.Modules.Auth.Domain.Entities;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -8,7 +9,7 @@ public class OfficerConfiguration : IEntityTypeConfiguration<Officer>
 {
     public void Configure(EntityTypeBuilder<Officer> builder)
     {
-        builder.ToTable("Officers");
+        builder.ToTable("Officer");
         builder.HasKey(o => o.OfficerId);
         
         builder.Property<Guid>("OfficerId").HasColumnName("OfficerId");
@@ -18,5 +19,21 @@ public class OfficerConfiguration : IEntityTypeConfiguration<Officer>
         builder.Property<string>("PhoneNumber").HasColumnName("PhoneNumber");
         builder.Property<string>("PasswordHash").HasColumnName("PasswordHash");
         builder.Property<int>("WardId").HasColumnName("WardId");
+        builder.Property<Guid>("RoleId").HasColumnName("RoleId");
+
+        builder
+            .HasOne<Role>(o => o.Role)
+            .WithOne(r => r.Officer)
+            .HasForeignKey<Officer>(o => o.RoleId);
+        
+        builder
+            .HasOne<Ward>(r => r.Ward)
+            .WithOne(p => p.Officer)
+            .HasForeignKey<Officer>(o => o.WardId);
+        
+        builder
+            .HasMany<Privilege>(r => r.Privileges)
+            .WithMany(p => p.Officers)
+            .UsingEntity("OfficerPrivilege");
     }
 }

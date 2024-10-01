@@ -2,7 +2,7 @@
 
 namespace AdsManagement.BuildingBlocks.Domain.DomainEvents;
 
-public interface IDomainEvent : INotification
+public interface IDomainEvent
 {
     Guid Id { get; }
 

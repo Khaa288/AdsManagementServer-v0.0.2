@@ -1,4 +1,5 @@
-﻿using AdsManagement.Modules.Advertisement.Infrastructure.Configuration.DataAccess;
+﻿using AdsManagement.Modules.Advertisement.Infrastructure.Configuration.Caching;
+using AdsManagement.Modules.Advertisement.Infrastructure.Configuration.DataAccess;
 using AdsManagement.Modules.Advertisement.Infrastructure.Configuration.EventBus;
 using AdsManagement.Modules.Advertisement.Infrastructure.Configuration.Logging;
 using AdsManagement.Modules.Advertisement.Infrastructure.Configuration.Mediator;
@@ -18,6 +19,7 @@ public class Startup
     public static void Initialize(
         DatabaseConfiguration configuration,
         EventBusConfiguration eventBusConfiguration,
+        string cacheConnectionString,
         ILogger logger
     )
     {
@@ -26,6 +28,7 @@ public class Startup
         ConfigureCompositionRoot(
             configuration,
             eventBusConfiguration,
+            cacheConnectionString,
             moduleLogger
         );
     }
@@ -33,6 +36,7 @@ public class Startup
     private static void ConfigureCompositionRoot(
         DatabaseConfiguration configuration,
         EventBusConfiguration eventBusConfiguration,
+        string cacheConnectionString,
         ILogger logger)
     {
         var containerBuilder = new ContainerBuilder();
@@ -44,6 +48,7 @@ public class Startup
         containerBuilder.RegisterModule(new EventBusModule(eventBusConfiguration));
         containerBuilder.RegisterModule(new ProcessingModule());
         containerBuilder.RegisterModule(new MediatorModule());
+        containerBuilder.RegisterModule(new CachingModule(cacheConnectionString));
 
         _container = containerBuilder.Build();
 

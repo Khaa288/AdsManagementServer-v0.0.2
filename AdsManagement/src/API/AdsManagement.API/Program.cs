@@ -79,6 +79,7 @@ builder.Host
                 builder.Configuration["EventBus:Username"],   
                 builder.Configuration["EventBus:Password"]
                 ),
+            builder.Configuration["Databases:AdvertisementModuleDb:NoSql:Redis:ConnectionString"],
             logger
         );
     });

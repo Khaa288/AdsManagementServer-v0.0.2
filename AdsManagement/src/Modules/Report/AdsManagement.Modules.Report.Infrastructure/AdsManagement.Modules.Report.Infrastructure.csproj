@@ -7,4 +7,29 @@
         <RootNamespace>Infrastructure</RootNamespace>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\BuildingBlocks\AdsManagement.BuildingBlocks.Application\AdsManagement.BuildingBlocks.Application.csproj" />
+      <ProjectReference Include="..\..\..\BuildingBlocks\AdsManagement.BuildingBlocks.Infrastructure\AdsManagement.BuildingBlocks.Infrastructure.csproj" />
+      <ProjectReference Include="..\AdsManagement.Modules.Report.Application\AdsManagement.Modules.Report.Application.csproj" />
+      <ProjectReference Include="..\AdsManagement.Modules.Report.Domain\AdsManagement.Modules.Report.Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Autofac" Version="8.1.0" />
+      <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="10.0.0" />
+      <PackageReference Include="MassTransit" Version="8.2.6-develop.2026" />
+      <PackageReference Include="MassTransit.Autofac" Version="7.3.1" />
+      <PackageReference Include="MassTransit.RabbitMQ" Version="8.2.6-develop.2026" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.0-rc.1.24451.1" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0-rc.1.24451.1">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+      <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.0-rc.1.24451.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Domain\Repositories\" />
+    </ItemGroup>
+
 </Project>

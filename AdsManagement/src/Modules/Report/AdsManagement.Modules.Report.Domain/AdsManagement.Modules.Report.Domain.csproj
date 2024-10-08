@@ -7,4 +7,13 @@
         <RootNamespace>Domain</RootNamespace>
     </PropertyGroup>
 
+    <ItemGroup>
+      <Folder Include="BusinessRules\" />
+      <Folder Include="DomainEvents\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\BuildingBlocks\AdsManagement.BuildingBlocks.Domain\AdsManagement.BuildingBlocks.Domain.csproj" />
+    </ItemGroup>
+
 </Project>

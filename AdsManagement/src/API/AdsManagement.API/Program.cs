@@ -6,7 +6,7 @@ using AdsManagement.Modules.Advertisement.Infrastructure.Database;
 using AdsManagement.Modules.Auth.Infrastructure.Configuration.Auth;
 using AdsManagement.Modules.Auth.Infrastructure.EventBus;
 using AdsManagement.Modules.Auth.Infrastructure.Token;
-
+using AdsManagement.Modules.Report.Infrastructure.Configuration.Report;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Serilog;
@@ -60,6 +60,7 @@ builder.Host
         // Register module here
         container.RegisterModule(new AuthAutoFacModule());
         container.RegisterModule(new AdvertisementAutoFacModule());
+        container.RegisterModule(new ReportAutoFacModule());
         
         // Initialize module here
         AdsManagement.Modules.Auth.Infrastructure.Configuration.Startup.Initialize(
@@ -80,6 +81,16 @@ builder.Host
                 builder.Configuration["EventBus:Password"]
                 ),
             builder.Configuration["Databases:AdvertisementModuleDb:NoSql:Redis:ConnectionString"],
+            logger
+        );
+        
+        AdsManagement.Modules.Report.Infrastructure.Configuration.Startup.Initialize(
+            builder.Configuration["Databases:AuthModuleDb:Sql:ConnectionString"],
+            new AdsManagement.Modules.Report.Infrastructure.EventBus.EventBusConfiguration(
+                builder.Configuration["EventBus:HostName"],   
+                builder.Configuration["EventBus:Username"],   
+                builder.Configuration["EventBus:Password"]
+            ),
             logger
         );
     });

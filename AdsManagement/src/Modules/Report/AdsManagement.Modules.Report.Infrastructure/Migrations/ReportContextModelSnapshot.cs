@@ -42,8 +42,9 @@ namespace Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasColumnName("ReportObjectId");
 
-                    b.Property<int>("ReportType")
-                        .HasColumnType("int")
+                    b.Property<string>("ReportType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
                         .HasColumnName("ReportType");
 
                     b.Property<Guid>("ReporterId")

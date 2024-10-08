@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ReportContext))]
-    [Migration("20241004141233_InitReportModule")]
+    [Migration("20241008124041_InitReportModule")]
     partial class InitReportModule
     {
         /// <inheritdoc />
@@ -45,8 +45,9 @@ namespace Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasColumnName("ReportObjectId");
 
-                    b.Property<int>("ReportType")
-                        .HasColumnType("int")
+                    b.Property<string>("ReportType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
                         .HasColumnName("ReportType");
 
                     b.Property<Guid>("ReporterId")

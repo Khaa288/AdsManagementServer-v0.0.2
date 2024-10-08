@@ -13,7 +13,7 @@ public class ReportConfiguration : IEntityTypeConfiguration<Report.Domain.Entiti
         builder.HasKey(r => r.ReportId);
         
         builder.Property<Guid>("ReportId").HasColumnName("ReportId");
-        builder.Property<int>("ReportType").HasColumnName("ReportType");
+        builder.Property<string>("ReportType").HasColumnName("ReportType");
         builder.Property<string>("Content").HasColumnName("Content");
         builder.Property<string>("Solution").HasColumnName("Solution");
         builder.Property<int>("Status").HasColumnName("Status");

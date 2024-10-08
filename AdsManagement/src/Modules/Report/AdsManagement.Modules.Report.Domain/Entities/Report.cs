@@ -5,7 +5,7 @@ namespace AdsManagement.Modules.Report.Domain.Entities;
 public class Report : Entity
 {
     public Guid ReportId { get; set; }
-    public int ReportType { get; set; }
+    public string ReportType { get; set; }
     public string Content { get; set; }
     public string Solution { get; set; }
     public int Status { get; set; }

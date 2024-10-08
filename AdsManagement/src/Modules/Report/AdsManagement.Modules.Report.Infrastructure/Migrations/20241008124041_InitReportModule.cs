@@ -47,7 +47,7 @@ namespace Infrastructure.Migrations
                 columns: table => new
                 {
                     ReportId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ReportType = table.Column<int>(type: "int", nullable: false),
+                    ReportType = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Solution = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),

@@ -29,7 +29,7 @@
     <ItemGroup>
       <Folder Include="Modules\Advertisement\" />
       <Folder Include="Modules\Licensing\" />
-      <Folder Include="Modules\Report\" />
+      <Folder Include="Modules\Report\Dtos\" />
     </ItemGroup>
 
 </Project>

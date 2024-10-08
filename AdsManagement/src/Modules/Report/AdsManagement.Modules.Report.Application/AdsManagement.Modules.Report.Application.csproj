@@ -9,6 +9,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\..\BuildingBlocks\AdsManagement.BuildingBlocks.Application\AdsManagement.BuildingBlocks.Application.csproj" />
+      <ProjectReference Include="..\AdsManagement.Modules.Report.Domain\AdsManagement.Modules.Report.Domain.csproj" />
     </ItemGroup>
 
     <ItemGroup>
@@ -17,7 +18,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Commands\" />
+      <Folder Include="Constraints\Constants\" />
       <Folder Include="Queries\" />
     </ItemGroup>
 

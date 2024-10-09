@@ -8,7 +8,7 @@ using ValidationException = FluentValidation.ValidationException;
 namespace AdsManagement.Modules.Auth.Application.Behaviours;
 
 public class ValidationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
-    where TRequest : ICommand<TResponse>
+    where TRequest : ICommand, ICommand<TResponse>, IQuery<TResponse>
 {
     private readonly IEnumerable<IValidator<TRequest>> _validators;
 

@@ -1,4 +1,4 @@
-﻿namespace AdsManagement.BuildingBlocks.Infrastructure;
+﻿namespace AdsManagement.BuildingBlocks.Domain;
 
 public interface IUnitOfWork
 {

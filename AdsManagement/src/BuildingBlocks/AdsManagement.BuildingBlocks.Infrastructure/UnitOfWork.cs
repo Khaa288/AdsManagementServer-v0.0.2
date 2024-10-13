@@ -1,6 +1,8 @@
-﻿namespace AdsManagement.BuildingBlocks.Infrastructure;
+﻿using AdsManagement.BuildingBlocks.Domain;
 
 using Microsoft.EntityFrameworkCore;
+
+namespace AdsManagement.BuildingBlocks.Infrastructure;
 
 public class UnitOfWork : IUnitOfWork
 {

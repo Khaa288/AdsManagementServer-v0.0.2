@@ -1,5 +1,5 @@
-﻿using AdsManagement.BuildingBlocks.Infrastructure;
-using AdsManagement.Modules.Report.Application.Configuration.Commands;
+﻿using AdsManagement.BuildingBlocks.Domain;
+using AdsManagement.BuildingBlocks.Infrastructure;
 
 using Autofac;
 

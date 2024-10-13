@@ -2,5 +2,5 @@
 
 public interface IReportImageRepository
 {
-    Task<bool> AddReportImages(Guid reportId, List<string> urls);
+    Task AddReportImagesAsync(Guid reportId, List<string> urls);
 }

@@ -4,7 +4,7 @@ using AdsManagement.Modules.Report.Infrastructure.Database;
 
 namespace AdsManagement.Modules.Report.Infrastructure.Domain.Repositories;
 
-public class ReporterRepository : IReporterRepository
+internal class ReporterRepository : IReporterRepository
 {
     private readonly ReportContext _reportContext;
 
@@ -15,15 +15,15 @@ public class ReporterRepository : IReporterRepository
 
     public async Task<Reporter> CreateReporter(string name, string email, string phoneNumber)
     {
-        var reporter = new Reporter();
-
-        reporter.ReporterId = Guid.NewGuid();
-        reporter.Name = name;
-        reporter.Email = email;
-        reporter.PhoneNumber = phoneNumber;
+        var reporter = new Reporter()
+        {
+            ReporterId = Guid.NewGuid(),
+            Name = name,
+            Email = email,
+            PhoneNumber = phoneNumber
+        };
 
         await _reportContext.Reporters.AddAsync(reporter);
-
         return reporter;
     }
 }

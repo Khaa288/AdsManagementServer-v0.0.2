@@ -1,6 +1,13 @@
-﻿namespace AdsManagement.Modules.Report.Application.Common;
+﻿using AdsManagement.Modules.Report.Application.Commands;
 
-public class AutoMapperProfiles
+using AutoMapper;
+
+namespace AdsManagement.Modules.Report.Application.Common;
+
+public class AutoMapperProfile : Profile
 {
-    
+    public AutoMapperProfile()
+    {
+        CreateMap<Domain.Entities.Report, SendReportResponse>();
+    }
 }

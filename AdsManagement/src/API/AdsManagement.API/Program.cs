@@ -1,3 +1,4 @@
+using AdsManagement.API.Common;
 using AdsManagement.API.Configurations.Extensions;
 using AdsManagement.API.Configurations.Validations;
 using AdsManagement.BuildingBlocks.Application.Constraints;
@@ -7,6 +8,7 @@ using AdsManagement.Modules.Auth.Infrastructure.Configuration.Auth;
 using AdsManagement.Modules.Auth.Infrastructure.EventBus;
 using AdsManagement.Modules.Auth.Infrastructure.Token;
 using AdsManagement.Modules.Report.Infrastructure.Configuration.Report;
+
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Serilog;
@@ -25,6 +27,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddControllers();
 builder.Services.AddProblemDetails();
 builder.Services.AddExceptionHandler<ApiExceptionHandler>();
+builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
 // Extensions
 builder.Services.AddApiSwaggerDocumentation();
@@ -85,12 +88,13 @@ builder.Host
         );
         
         AdsManagement.Modules.Report.Infrastructure.Configuration.Startup.Initialize(
-            builder.Configuration["Databases:AuthModuleDb:Sql:ConnectionString"],
+            builder.Configuration["Databases:ReportModuleDb:Sql:ConnectionString"],
             new AdsManagement.Modules.Report.Infrastructure.EventBus.EventBusConfiguration(
                 builder.Configuration["EventBus:HostName"],   
                 builder.Configuration["EventBus:Username"],   
                 builder.Configuration["EventBus:Password"]
             ),
+            builder.Configuration["Storages:ReportModule:ConnectionString"],
             logger
         );
     });

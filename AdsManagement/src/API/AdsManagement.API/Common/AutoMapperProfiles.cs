@@ -1,6 +1,15 @@
-﻿namespace AdsManagement.API.Common;
+﻿using AdsManagement.BuildingBlocks.Application.Common.Files;
 
-public class AutoMapperProfiles
+using AutoMapper;
+
+namespace AdsManagement.API.Common;
+
+public class AutoMapperProfile : Profile
 {
-    
+    public AutoMapperProfile() {
+        CreateMap<IFormFile, FileData>()
+            .ForMember(
+                fd => fd.Content, 
+                ff => ff.MapFrom((ff => ff.OpenReadStream())));
+    }
 }

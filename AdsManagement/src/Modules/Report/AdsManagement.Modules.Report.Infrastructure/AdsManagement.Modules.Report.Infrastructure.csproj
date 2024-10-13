@@ -17,6 +17,8 @@
     <ItemGroup>
       <PackageReference Include="Autofac" Version="8.1.0" />
       <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="10.0.0" />
+      <PackageReference Include="AutoMapper.Contrib.Autofac.DependencyInjection" Version="8.0.0" />
+      <PackageReference Include="Azure.Storage.Blobs" Version="12.19.1" />
       <PackageReference Include="MassTransit" Version="8.2.6-develop.2026" />
       <PackageReference Include="MassTransit.Autofac" Version="7.3.1" />
       <PackageReference Include="MassTransit.RabbitMQ" Version="8.2.6-develop.2026" />

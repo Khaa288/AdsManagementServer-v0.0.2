@@ -18,6 +18,7 @@ public class ReportConfiguration : IEntityTypeConfiguration<Report.Domain.Entiti
         builder.Property<string>("Solution").HasColumnName("Solution");
         builder.Property<int>("Status").HasColumnName("Status");
         builder.Property<DateTime>("CreatedTime").HasColumnName("CreatedTime");
+        builder.Property<DateTime>("UpdatedTime").HasColumnName("UpdatedTime");
         builder.Property<int>("ReportObjectId").HasColumnName("ReportObjectId");
         builder.Property<Guid>("ReporterId").HasColumnName("ReporterId");
 

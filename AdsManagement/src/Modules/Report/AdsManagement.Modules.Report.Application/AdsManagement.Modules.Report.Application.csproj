@@ -9,15 +9,16 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\..\BuildingBlocks\AdsManagement.BuildingBlocks.Application\AdsManagement.BuildingBlocks.Application.csproj" />
+      <ProjectReference Include="..\AdsManagement.Modules.Report.Domain\AdsManagement.Modules.Report.Domain.csproj" />
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="AutoMapper" Version="13.0.1" />
       <PackageReference Include="FluentValidation" Version="11.10.0" />
       <PackageReference Include="MediatR.Contracts" Version="2.0.1" />
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Commands\" />
       <Folder Include="Queries\" />
     </ItemGroup>
 

@@ -7,4 +7,6 @@ public interface  IReportModule
     Task ExecuteCommandAsync(ICommand command);
 
     Task<TResult> ExecuteQueryAsync<TResult>(IQuery<TResult> query);
+    
+    Task ExecuteCommandWithNotificationAsync(ICommandWithNotification notification);
 }

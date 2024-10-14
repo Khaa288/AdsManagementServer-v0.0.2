@@ -1,8 +1,10 @@
 ﻿using AdsManagement.Modules.Report.Infrastructure.Configuration.DataAccess;
 using AdsManagement.Modules.Report.Infrastructure.Configuration.EventBus;
 using AdsManagement.Modules.Report.Infrastructure.Configuration.Logging;
+using AdsManagement.Modules.Report.Infrastructure.Configuration.Mapping;
 using AdsManagement.Modules.Report.Infrastructure.Configuration.Mediator;
 using AdsManagement.Modules.Report.Infrastructure.Configuration.Processing;
+using AdsManagement.Modules.Report.Infrastructure.Configuration.Storage;
 using AdsManagement.Modules.Report.Infrastructure.EventBus;
 
 using Autofac;
@@ -17,6 +19,7 @@ public class Startup
     public static void Initialize(
         string connectionString,
         EventBusConfiguration eventBusConfiguration,
+        string storageConnectionString,
         // EmailsConfiguration emailsConfiguration,
         ILogger logger
     )
@@ -26,6 +29,7 @@ public class Startup
         ConfigureCompositionRoot(
             connectionString,
             eventBusConfiguration,
+            storageConnectionString,
             // emailsConfiguration, 
             moduleLogger
         );
@@ -34,6 +38,7 @@ public class Startup
     private static void ConfigureCompositionRoot(
         string connectionString,
         EventBusConfiguration eventBusConfiguration,
+        string storageConnectionString,
         // EmailsConfiguration emailsConfiguration,
         ILogger logger)
     {
@@ -47,6 +52,8 @@ public class Startup
         containerBuilder.RegisterModule(new EventBusModule(eventBusConfiguration));
         containerBuilder.RegisterModule(new ProcessingModule());
         containerBuilder.RegisterModule(new MediatorModule());
+        containerBuilder.RegisterModule(new MappingModule());
+        containerBuilder.RegisterModule(new StorageModule(storageConnectionString));
         
         // containerBuilder.RegisterModule(new EmailModule(emailsConfiguration));
 

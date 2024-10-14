@@ -10,6 +10,7 @@ public class Report : Entity
     public string Solution { get; set; }
     public int Status { get; set; }
     public DateTime CreatedTime { get; set; }
+    public DateTime UpdatedTime { get; set; }
     
     public int ReportObjectId { get; set; }
     public ReportObject ReportObject { get; set; }

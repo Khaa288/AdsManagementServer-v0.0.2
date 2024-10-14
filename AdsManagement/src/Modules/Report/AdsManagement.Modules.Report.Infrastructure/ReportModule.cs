@@ -28,4 +28,14 @@ public class ReportModule : IReportModule
             return await mediator.Send(query);
         }
     }
+
+    public async Task ExecuteCommandWithNotificationAsync(ICommandWithNotification notification)
+    {
+        using (var scope = CompositionRoot.BeginLifetimeScope())
+        {
+            var mediator = scope.Resolve<IMediator>();
+
+            await mediator.Publish(notification);
+        }
+    }
 }

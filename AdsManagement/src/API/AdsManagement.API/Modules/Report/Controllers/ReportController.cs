@@ -1,4 +1,5 @@
-﻿using AdsManagement.API.Common;
+﻿using System.Net;
+using AdsManagement.API.Common;
 using AdsManagement.API.Modules.Report.Dtos;
 using AdsManagement.BuildingBlocks.Application.Common.Files;
 using AdsManagement.Modules.Report.Application.Commands;
@@ -27,16 +28,17 @@ public class ReportController : ControllerBase
     [HttpPost("send")]
     public async Task<IActionResult> SendReport([FromForm] SendReportRequestDto request)
     {
-        await _reportModule.ExecuteCommandAsync(new SendReportCommand(
+        var report = await _reportModule.ExecuteCommandAsync(new SendReportCommand(
             request.ReporterName,
             request.ReporterEmail,
             request.ReporterPhoneNumber,
             request.ReportType,
             request.Content,
             request.ReportObjectId,
+            request.ReportObjectType,
             _mapper.Map<ICollection<FileData>>(request.Images)
         ));
         
-        return Ok();
+        return Ok(new ApiResponse { StatusCode = HttpStatusCode.OK, Result = report });
     }
 }

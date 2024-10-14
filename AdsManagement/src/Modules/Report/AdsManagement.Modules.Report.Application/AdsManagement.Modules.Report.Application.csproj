@@ -19,7 +19,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Constraints\Constants\" />
       <Folder Include="Queries\" />
     </ItemGroup>
 

@@ -1,4 +1,5 @@
-﻿using AdsManagement.BuildingBlocks.Infrastructure;
+﻿using AdsManagement.BuildingBlocks.Domain;
+using AdsManagement.BuildingBlocks.Infrastructure;
 
 using Autofac;
 

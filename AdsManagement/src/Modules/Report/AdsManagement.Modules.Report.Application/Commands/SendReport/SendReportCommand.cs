@@ -13,6 +13,7 @@ public class SendReportCommand : CommandBase<SendReportResponse?>
     public Guid ReportObjectId { get; }
     public string ReportObjectType { get; }
     public ICollection<FileData> Images { get; }
+    public string ReCaptchaResponseToken { get; }
 
     public SendReportCommand(
         string reporterName, 
@@ -22,7 +23,8 @@ public class SendReportCommand : CommandBase<SendReportResponse?>
         string content, 
         Guid reportObjectId,
         string reportObjectType,
-        ICollection<FileData> images)
+        ICollection<FileData> images, 
+        string reCaptchaResponseToken)
     {
         ReporterName = reporterName;
         ReporterEmail = reporterEmail;
@@ -32,5 +34,6 @@ public class SendReportCommand : CommandBase<SendReportResponse?>
         ReportType = reportType;
         Content = content;
         Images = images;
+        ReCaptchaResponseToken = reCaptchaResponseToken;
     }
 }

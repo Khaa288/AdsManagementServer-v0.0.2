@@ -36,7 +36,8 @@ public class ReportController : ControllerBase
             request.Content,
             request.ReportObjectId,
             request.ReportObjectType,
-            _mapper.Map<ICollection<FileData>>(request.Images)
+            _mapper.Map<ICollection<FileData>>(request.Images),
+            request.ReCaptchaResponseToken
         ));
         
         return Ok(new ApiResponse { StatusCode = HttpStatusCode.OK, Result = report });

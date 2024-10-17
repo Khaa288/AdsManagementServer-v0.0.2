@@ -10,4 +10,5 @@ public class SendReportRequestDto
     public string ReportObjectType { get; set; }
     public string ReportType { get; set; }
     public ICollection<IFormFile>? Images { get; set; }
+    public string ReCaptchaResponseToken { get; set; }
 }

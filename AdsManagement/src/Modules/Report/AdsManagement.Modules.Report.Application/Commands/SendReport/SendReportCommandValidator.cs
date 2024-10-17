@@ -1,4 +1,5 @@
-﻿using AdsManagement.Modules.Report.Domain.BusinessRules;
+﻿using AdsManagement.Modules.Report.Application.ReCaptcha;
+using AdsManagement.Modules.Report.Domain.BusinessRules;
 using AdsManagement.Modules.Report.Domain.Repositories;
 using Application.Constraints.Constants;
 
@@ -8,7 +9,7 @@ namespace AdsManagement.Modules.Report.Application.Commands;
 
 public class SendReportCommandValidator : AbstractValidator<SendReportCommand>
 {
-    public SendReportCommandValidator(IReportObjectRepository reportObjectRepository)
+    public SendReportCommandValidator(IReportObjectRepository reportObjectRepository, IReCaptchaService reCaptchaService)
     {
         RuleFor(x => x.ReporterEmail)
             .EmailAddress()
@@ -45,5 +46,9 @@ public class SendReportCommandValidator : AbstractValidator<SendReportCommand>
         RuleFor(x => x.Images)
             .Must(images => ReportBusinessRule.EachReportHasTwoImages(images.Count))
             .WithMessage("Maximum images of a report is 2");
+
+        RuleFor(x => x.ReCaptchaResponseToken)
+            .MustAsync(async (responseToken, cancellationToken) => await reCaptchaService.VerifyReCaptcha(responseToken))
+            .WithMessage("Invalid reCAPTCHA credential!");
     }
 }

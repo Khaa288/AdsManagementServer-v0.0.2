@@ -8,7 +8,7 @@ using AdsManagement.Modules.Auth.Infrastructure.Configuration.Auth;
 using AdsManagement.Modules.Auth.Infrastructure.EventBus;
 using AdsManagement.Modules.Auth.Infrastructure.Token;
 using AdsManagement.Modules.Report.Infrastructure.Configuration.Report;
-
+using AdsManagement.Modules.Report.Infrastructure.ReCaptcha;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Serilog;
@@ -95,6 +95,10 @@ builder.Host
                 builder.Configuration["EventBus:Password"]
             ),
             builder.Configuration["Storages:ReportModule:ConnectionString"],
+            new ReCaptchaConfiguration(
+                builder.Configuration["ReCaptcha:ReportModule:ReCaptchaSecret"],
+                builder.Configuration["ReCaptcha:ReportModule:ReCaptchaVerifySite"]
+            ),
             logger
         );
     });

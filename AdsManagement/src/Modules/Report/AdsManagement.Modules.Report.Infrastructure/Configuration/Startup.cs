@@ -4,9 +4,10 @@ using AdsManagement.Modules.Report.Infrastructure.Configuration.Logging;
 using AdsManagement.Modules.Report.Infrastructure.Configuration.Mapping;
 using AdsManagement.Modules.Report.Infrastructure.Configuration.Mediator;
 using AdsManagement.Modules.Report.Infrastructure.Configuration.Processing;
+using AdsManagement.Modules.Report.Infrastructure.Configuration.ReCaptcha;
 using AdsManagement.Modules.Report.Infrastructure.Configuration.Storage;
 using AdsManagement.Modules.Report.Infrastructure.EventBus;
-
+using AdsManagement.Modules.Report.Infrastructure.ReCaptcha;
 using Autofac;
 using ILogger = Serilog.ILogger;
 
@@ -20,16 +21,18 @@ public class Startup
         string connectionString,
         EventBusConfiguration eventBusConfiguration,
         string storageConnectionString,
+        ReCaptchaConfiguration reCaptchaConfiguration,
         // EmailsConfiguration emailsConfiguration,
         ILogger logger
     )
     {
-        var moduleLogger = logger.ForContext("Module", "Auth");
+        var moduleLogger = logger.ForContext("Module", "Report");
 
         ConfigureCompositionRoot(
             connectionString,
             eventBusConfiguration,
             storageConnectionString,
+            reCaptchaConfiguration,
             // emailsConfiguration, 
             moduleLogger
         );
@@ -39,6 +42,7 @@ public class Startup
         string connectionString,
         EventBusConfiguration eventBusConfiguration,
         string storageConnectionString,
+        ReCaptchaConfiguration reCaptchaConfiguration,
         // EmailsConfiguration emailsConfiguration,
         ILogger logger)
     {
@@ -54,6 +58,7 @@ public class Startup
         containerBuilder.RegisterModule(new MediatorModule());
         containerBuilder.RegisterModule(new MappingModule());
         containerBuilder.RegisterModule(new StorageModule(storageConnectionString));
+        containerBuilder.RegisterModule(new ReCaptchaModule(reCaptchaConfiguration));
         
         // containerBuilder.RegisterModule(new EmailModule(emailsConfiguration));
 

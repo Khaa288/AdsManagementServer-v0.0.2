@@ -1,10 +1,11 @@
-﻿using System.Net;
-using AdsManagement.API.Common;
+﻿using AdsManagement.API.Common;
 using AdsManagement.API.Modules.Report.Dtos;
 using AdsManagement.BuildingBlocks.Application.Common.Files;
 using AdsManagement.Modules.Report.Application.Commands;
 using AdsManagement.Modules.Report.Application.Contracts;
+using AdsManagement.Modules.Report.Application.Queries;
 
+using System.Net;
 using Asp.Versioning;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -23,6 +24,17 @@ public class ReportController : ControllerBase
     {
         _reportModule = reportModule;
         _mapper = mapper;
+    }
+    
+    [HttpPost("reporter")]
+    public async Task<IActionResult> GetReporterAllReport([FromBody] GetReporterReportRequestDto request)
+    {
+        var reports = await _reportModule.ExecuteQueryAsync(new GetAllReportsQuery(
+            request.Name,
+            request.Email,
+            request.PhoneNumber
+        ));
+        return Ok(new ApiResponse { StatusCode = HttpStatusCode.OK, Result = reports });
     }
 
     [HttpPost("send")]

@@ -27,17 +27,19 @@ public class GetAllReportsQueryHandler : IQueryHandler<GetAllReportsQuery, IEnum
                               	LEFT JOIN Reporter [RPT] ON [RP].[ReporterId] = [RPT].[ReporterId]
                               	LEFT JOIN ReportObject [RPO] ON [RP].ReportObjectId = [RPO].[SurrogateKey]
                               Where 
-                              	[RPT].[Name] = @Name AND
-                              	[RPT].[Email] = @Email AND
-                              	[RPT].[PhoneNumber] = @PhoneNumber
+                              	[RPT].[Name] LIKE @Name AND
+                              	[RPT].[Email] LIKE @Email AND
+                              	[RPT].[PhoneNumber] LIKE @PhoneNumber
                               ORDER BY [RP].[CreatedTime] DESC
                               """;
         
-        return await connection.QueryAsync<GetAllReportsResponse>(query, new
+        var queryParams = new
         {
-            request.Name,
-            request.Email,
-            request.PhoneNumber
-        });
+            Name = $"%{request.Name}%",
+            Email = $"%{request.Email}%",
+            PhoneNumber = $"%{request.PhoneNumber}%",
+        };
+        
+        return await connection.QueryAsync<GetAllReportsResponse>(query, queryParams);
     }
 }

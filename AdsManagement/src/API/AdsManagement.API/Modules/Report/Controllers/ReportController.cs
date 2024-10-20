@@ -26,8 +26,8 @@ public class ReportController : ControllerBase
         _mapper = mapper;
     }
     
-    [HttpPost("reporter")]
-    public async Task<IActionResult> GetReporterAllReport([FromBody] GetReporterReportRequestDto request)
+    [HttpGet("reporter")]
+    public async Task<IActionResult> GetReporterAllReport([FromQuery] GetReporterReportRequestDto request)
     {
         var reports = await _reportModule.ExecuteQueryAsync(new GetAllReportsQuery(
             request.Name,

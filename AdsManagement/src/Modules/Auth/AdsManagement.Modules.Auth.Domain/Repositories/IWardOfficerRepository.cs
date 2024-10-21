@@ -5,9 +5,8 @@ namespace AdsManagement.Modules.Auth.Domain.Repositories;
 public interface IWardOfficerRepository
 {
     Task<List<WardOfficer>> GetAllWardOfficerAsync();
-    
-    Task CreateOrUpdateWardOfficerAsync(WardOfficer officer);
-    Task CreateWardOfficerAsync(WardOfficer officer);
-    Task UpdateWardOfficerAsync(WardOfficer officer);
-    Task DeleteDistrictOfficerAsync(WardOfficer officer);
+    Task<bool> IsWardOfficerExistsByIdAsync(Guid wardOfficerId);
+    Task CreateWardOfficerAsync(WardOfficer wardOfficer);
+    Task UpdateWardOfficerAsync(WardOfficer wardOfficer);
+    Task DeleteWardOfficerAsync(WardOfficer wardOfficer);
 }

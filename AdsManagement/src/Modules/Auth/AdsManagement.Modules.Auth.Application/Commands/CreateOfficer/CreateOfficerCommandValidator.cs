@@ -9,7 +9,9 @@ public class CreateOfficerCommandValidator : AbstractValidator<CreateOfficerComm
     public CreateOfficerCommandValidator(
         IOfficerRepository officerRepository,
         IDistrictRepository districtRepository,
-        IWardRepository wardRepository)
+        IWardRepository wardRepository,
+        IRoleRepository roleRepository,
+        IPrivilegeRepository privilegeRepository)
     {
         RuleFor(x => x.Email)
             .NotEmpty()
@@ -69,7 +71,7 @@ public class CreateOfficerCommandValidator : AbstractValidator<CreateOfficerComm
             {
                 if (command.WardId != null)
                 {
-                    var ward = await wardRepository.GetWardByIdAsync(command.WardId.Value);
+                    var ward = await wardRepository.GetWardByIdAsync(command.WardId);
                     if (ward is null)
                     {
                         return false;
@@ -83,7 +85,7 @@ public class CreateOfficerCommandValidator : AbstractValidator<CreateOfficerComm
             {
                 if (command.WardId != null)
                 {
-                    var ward = await wardRepository.GetWardByIdAsync(command.WardId.Value);
+                    var ward = await wardRepository.GetWardByIdAsync(command.WardId);
                     if (!ward!.DistrictId.Equals(command.DistrictId))
                     {
                         return false;
@@ -96,44 +98,29 @@ public class CreateOfficerCommandValidator : AbstractValidator<CreateOfficerComm
         
         RuleFor(x => x.RoleId)
             .NotEmpty()
-            .WithMessage("Role Id is required");
-        
+            .WithMessage("Role Id is required")
+            .MustAsync(async (command, roleId, cancellation) =>
+            {
+                return await roleRepository.IsRoleExistsByIdAsync(command.RoleId);
+            })
+            .WithMessage("Role Id is not valid");
+            
         RuleFor(x => x.Privileges)
             .MustAsync(async (command, privileges, cancellation) =>
             {
-                if (privileges.Count > 0)
+                if (privileges.Count > 0 && command.RoleId != null)
                 {
-                    // Retrieve role with its privileges from the repository
-                    var role = await roleRepository.GetRoleWithPrivilegesAsync(command.RoleId);
-
-                    if (role == null)
-                    {
-                        return false; // If role doesn't exist, validation fails
-                    }
-
-                    // Set to track duplicates in the provided privileges list
-                    var privilegeSet = new HashSet<int>();
-
                     foreach (var privilege in privileges)
                     {
-                        // Check for duplicate privilege in the provided list
-                        if (!privilegeSet.Add(privilege))
+                        if (!await privilegeRepository.IsPrivilegeExistsById(privilege) )
                         {
-                            // If privilege is already in the set, it's a duplicate
-                            return false; // Validation fails due to duplicate
-                        }
-
-                        // Check if the role already contains the privilege
-                        if (role.Privileges.Any(rp => rp.Id == privilege))
-                        {
-                            // If the role already contains the privilege, ignore
-                            continue;
+                            return false;
                         }
                     }
                 }
-
-                return true; // Validation passes if all checks are okay
+            
+                return true;
             })
-            .WithMessage("Privileges contain duplicates or are already assigned to the role.");
+            .WithMessage("One or more privilege IDs do not exist in the database.");
     }
 }

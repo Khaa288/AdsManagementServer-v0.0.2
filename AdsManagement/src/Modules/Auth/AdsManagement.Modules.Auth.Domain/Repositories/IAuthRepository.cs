@@ -4,8 +4,7 @@ namespace AdsManagement.Modules.Auth.Domain.Repositories;
 
 public interface IAuthRepository
 {
-    Task<Officer?> GetOfficerByIdAsync(Guid officerId);
-    Task<Officer?> GetOfficerWithRolesPrivilegesByEmailAsync(string email);
-    Task<bool> IsOfficerExistsByEmailAsync(string email);
+    Task<Otp> GenerateOtpForPasswordResetAsync(Officer officer);
+    Task<bool> ValidateOtpAsync(Guid officerId, string otpCode);
     // Add more here
 }

@@ -14,24 +14,26 @@ internal class AuthRepository : IAuthRepository
     {
         _authContext = authContext;
     }
+    
+    public async Task<Otp> GenerateOtpForPasswordResetAsync(Officer officer)
+    {
+        var otp = new Otp
+        {
+            OtpId = new Guid(),
+            OfficerId = officer.OfficerId,
+            Code = new Random().Next(100000, 999999).ToString(),
+            ExpiryDate = DateTime.UtcNow.AddMinutes(5)
+        };
 
-    public async Task<Officer?> GetOfficerByIdAsync(Guid officerId)
-    {
-        return await _authContext.Officers.FindAsync(officerId);
+        await _authContext.Otps.AddAsync(otp);
+        return otp;
     }
-    
-    public async Task<Officer?> GetOfficerWithRolesPrivilegesByEmailAsync(string email)
+
+    public async Task<bool> ValidateOtpAsync(Guid officerId, string otpCode)
     {
-        return await _authContext.Officers
-            .Include(o => o.Role)
-            .Include(o => o.Privileges)
-            .FirstOrDefaultAsync(o => o.Email == email);
+        // check officer Id and opt Type 
+        var otp = await _authContext.Otps.FirstOrDefaultAsync(o => o.OfficerId == officerId);
+
+        return otp != null && otp.ExpiryDate >= DateTime.UtcNow;
     }
-    
-    public async Task<bool> IsOfficerExistsByEmailAsync(string email)
-    {
-        return await _authContext.Officers.AnyAsync(o => o.Email == email);
-    }
-    
-    // Add more here
 }

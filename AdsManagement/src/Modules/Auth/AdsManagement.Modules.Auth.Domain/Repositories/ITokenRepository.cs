@@ -6,6 +6,7 @@ public interface ITokenRepository
 {
     Task<RefreshToken?> GetRefreshTokenByOfficerIdAsync(Guid officerId);
     Task<bool> IsRefreshTokenExistsByOfficerIdAsync(Guid officerId);
+    
     Task AddRefreshTokenAsync(RefreshToken refreshToken);
-    Task<bool> RemoveRefreshTokenAsync(Guid refreshTokenId);
+    Task RemoveRefreshTokenAsync(RefreshToken refreshToken);
 }

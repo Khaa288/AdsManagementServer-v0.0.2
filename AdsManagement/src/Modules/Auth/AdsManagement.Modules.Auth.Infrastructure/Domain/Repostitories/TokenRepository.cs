@@ -9,14 +9,10 @@ namespace AdsManagement.Modules.Auth.Infrastructure.Domain.Repostitories;
 public class TokenRepository : ITokenRepository
 {
     private readonly AuthContext _authContext;
-    private readonly IUnitOfWork _unitOfWork;
     
-    public TokenRepository(
-        AuthContext authContext,
-        IUnitOfWork unitOfWork)
+    public TokenRepository(AuthContext authContext)
     {
         _authContext = authContext;
-        _unitOfWork = unitOfWork;
     }
     
     public async Task<RefreshToken?> GetRefreshTokenByOfficerIdAsync(Guid officerId)
@@ -34,17 +30,11 @@ public class TokenRepository : ITokenRepository
     public async Task AddRefreshTokenAsync(RefreshToken refreshToken)
     {
         await _authContext.Tokens.AddAsync(refreshToken);
-        // await _unitOfWork.CommitAsync();
     }
 
-    public async Task<bool> RemoveRefreshTokenAsync(Guid refreshTokenId)
+    public Task RemoveRefreshTokenAsync(RefreshToken refreshToken)
     {
-        var token = await _authContext.Tokens
-            .FirstOrDefaultAsync(t => t.TokenId == refreshTokenId);
-    }
-
-    public Task<string> CreateAccessTokenAsync(RefreshToken refreshToken)
-    {
-        throw new NotImplementedException();
+        _authContext.Tokens.Remove(refreshToken);
+        return Task.CompletedTask;
     }
 }

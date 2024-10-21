@@ -3,6 +3,5 @@
 public static class TokenTypeNames
 {
     public const string Access = "access";
-    
-    // Add more here
+    public const string Refresh = "refresh";
 }

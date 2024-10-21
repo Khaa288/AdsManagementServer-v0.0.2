@@ -11,12 +11,12 @@ public class CreateOfficerCommand : CommandBase
     public string? PhoneNumber { get; }
     public string Password { get; }
     public string RePassword { get; }
-    public int? WardId { get; }
+    public int WardId { get; }
     public int DistrictId { get; }
     public Guid RoleId { get; }
-    public List<Privilege> Privileges { get; set; }
+    public List<Guid> Privileges { get; }
 
-    public CreateOfficerCommand(string email, string fullName, DateTime doB, string? phoneNumber, string password, string rePassword, int? wardId, int districtId, Guid roleId, List<Privilege> privileges)
+    public CreateOfficerCommand(string email, string fullName, DateTime doB, string? phoneNumber, string password, string rePassword, int wardId, int districtId, Guid roleId, List<Guid> privileges)
     {
         Email = email;
         FullName = fullName;

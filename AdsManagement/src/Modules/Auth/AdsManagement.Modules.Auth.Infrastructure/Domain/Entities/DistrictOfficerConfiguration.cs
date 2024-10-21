@@ -9,7 +9,6 @@ public class DistrictOfficerConfiguration : IEntityTypeConfiguration<DistrictOff
     public void Configure(EntityTypeBuilder<DistrictOfficer> builder)
     {
         builder.ToTable("DistrictOfficer");
-        builder.HasKey(o => o.OfficerId);
         
         builder.Property<int>("DistrictId").HasColumnName("DistrictId");
         builder

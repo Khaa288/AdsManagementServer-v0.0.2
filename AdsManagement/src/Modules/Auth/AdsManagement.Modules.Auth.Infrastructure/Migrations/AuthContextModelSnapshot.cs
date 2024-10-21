@@ -69,19 +69,14 @@ namespace Infrastructure.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("RoleId");
 
-                    b.Property<int>("WardId")
-                        .HasColumnType("int")
-                        .HasColumnName("WardId");
-
                     b.HasKey("OfficerId");
 
                     b.HasIndex("RoleId")
                         .IsUnique();
 
-                    b.HasIndex("WardId")
-                        .IsUnique();
-
                     b.ToTable("Officer", (string)null);
+
+                    b.UseTptMappingStrategy();
                 });
 
             modelBuilder.Entity("AdsManagement.Modules.Auth.Domain.Entities.Otp", b =>
@@ -162,7 +157,8 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("TokenId");
 
-                    b.HasIndex("OfficerId");
+                    b.HasIndex("OfficerId")
+                        .IsUnique();
 
                     b.ToTable("RefreshToken", (string)null);
                 });
@@ -234,6 +230,43 @@ namespace Infrastructure.Migrations
                     b.ToTable("RolePrivilege");
                 });
 
+            modelBuilder.Entity("AdsManagement.Modules.Auth.Domain.Entities.DeptOfficer", b =>
+                {
+                    b.HasBaseType("AdsManagement.Modules.Auth.Domain.Entities.Officer");
+
+                    b.ToTable("DeptOfficer", (string)null);
+                });
+
+            modelBuilder.Entity("AdsManagement.Modules.Auth.Domain.Entities.DistrictOfficer", b =>
+                {
+                    b.HasBaseType("AdsManagement.Modules.Auth.Domain.Entities.Officer");
+
+                    b.Property<int>("DistrictId")
+                        .HasColumnType("int")
+                        .HasColumnName("DistrictId");
+
+                    b.HasIndex("DistrictId")
+                        .IsUnique()
+                        .HasFilter("[DistrictId] IS NOT NULL");
+
+                    b.ToTable("DistrictOfficer", (string)null);
+                });
+
+            modelBuilder.Entity("AdsManagement.Modules.Auth.Domain.Entities.WardOfficer", b =>
+                {
+                    b.HasBaseType("AdsManagement.Modules.Auth.Domain.Entities.Officer");
+
+                    b.Property<int>("WardId")
+                        .HasColumnType("int")
+                        .HasColumnName("WardId");
+
+                    b.HasIndex("WardId")
+                        .IsUnique()
+                        .HasFilter("[WardId] IS NOT NULL");
+
+                    b.ToTable("WardOfficer", (string)null);
+                });
+
             modelBuilder.Entity("AdsManagement.Modules.Auth.Domain.Entities.Officer", b =>
                 {
                     b.HasOne("AdsManagement.Modules.Auth.Domain.Entities.Role", "Role")
@@ -242,15 +275,7 @@ namespace Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("AdsManagement.Modules.Auth.Domain.Entities.Ward", "Ward")
-                        .WithOne("Officer")
-                        .HasForeignKey("AdsManagement.Modules.Auth.Domain.Entities.Officer", "WardId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Role");
-
-                    b.Navigation("Ward");
                 });
 
             modelBuilder.Entity("AdsManagement.Modules.Auth.Domain.Entities.Otp", b =>
@@ -267,8 +292,8 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("AdsManagement.Modules.Auth.Domain.Entities.RefreshToken", b =>
                 {
                     b.HasOne("AdsManagement.Modules.Auth.Domain.Entities.Officer", "Officer")
-                        .WithMany("RefreshTokens")
-                        .HasForeignKey("OfficerId")
+                        .WithOne()
+                        .HasForeignKey("AdsManagement.Modules.Auth.Domain.Entities.RefreshToken", "OfficerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -316,16 +341,60 @@ namespace Infrastructure.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("AdsManagement.Modules.Auth.Domain.Entities.DeptOfficer", b =>
+                {
+                    b.HasOne("AdsManagement.Modules.Auth.Domain.Entities.Officer", null)
+                        .WithOne()
+                        .HasForeignKey("AdsManagement.Modules.Auth.Domain.Entities.DeptOfficer", "OfficerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("AdsManagement.Modules.Auth.Domain.Entities.DistrictOfficer", b =>
+                {
+                    b.HasOne("AdsManagement.Modules.Auth.Domain.Entities.District", "District")
+                        .WithOne("DistrictOfficer")
+                        .HasForeignKey("AdsManagement.Modules.Auth.Domain.Entities.DistrictOfficer", "DistrictId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AdsManagement.Modules.Auth.Domain.Entities.Officer", null)
+                        .WithOne()
+                        .HasForeignKey("AdsManagement.Modules.Auth.Domain.Entities.DistrictOfficer", "OfficerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("District");
+                });
+
+            modelBuilder.Entity("AdsManagement.Modules.Auth.Domain.Entities.WardOfficer", b =>
+                {
+                    b.HasOne("AdsManagement.Modules.Auth.Domain.Entities.Officer", null)
+                        .WithOne()
+                        .HasForeignKey("AdsManagement.Modules.Auth.Domain.Entities.WardOfficer", "OfficerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AdsManagement.Modules.Auth.Domain.Entities.Ward", "Ward")
+                        .WithOne("WardOfficer")
+                        .HasForeignKey("AdsManagement.Modules.Auth.Domain.Entities.WardOfficer", "WardId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Ward");
+                });
+
             modelBuilder.Entity("AdsManagement.Modules.Auth.Domain.Entities.District", b =>
                 {
+                    b.Navigation("DistrictOfficer")
+                        .IsRequired();
+
                     b.Navigation("Wards");
                 });
 
             modelBuilder.Entity("AdsManagement.Modules.Auth.Domain.Entities.Officer", b =>
                 {
                     b.Navigation("Otps");
-
-                    b.Navigation("RefreshTokens");
                 });
 
             modelBuilder.Entity("AdsManagement.Modules.Auth.Domain.Entities.Role", b =>
@@ -336,7 +405,7 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("AdsManagement.Modules.Auth.Domain.Entities.Ward", b =>
                 {
-                    b.Navigation("Officer")
+                    b.Navigation("WardOfficer")
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

@@ -18,8 +18,19 @@ public class RoleRepository : IRoleRepository
     public async Task<List<Privilege>> GetPrivilegesByRoleId(Guid roleId)
     {
         return await _authContext.Roles
-            .Select(r => r.RoleId == roleId)
-            
+            .Where(r => r.RoleId == roleId)
+            .SelectMany(p => p.Privileges)
+            .ToListAsync();
+    }
+
+    public async Task<Role> GetRoleByIdAsync(Guid roleId)
+    {
+        return await _authContext.Roles.FirstOrDefaultAsync(r => r.RoleId == roleId);
+    }
+
+    public async Task<bool> IsRoleExistsByIdAsync(Guid roleId)
+    {
+        return await _authContext.Roles.AnyAsync(r => r.RoleId == roleId);
     }
 
     public async Task<bool> IsPrivilegeExistsInRoleById(Guid privilegeId)

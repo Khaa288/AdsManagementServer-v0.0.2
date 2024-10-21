@@ -2,6 +2,7 @@
 
 public static class RoleNames
 {
-    public const string Administrator = "ADMINISTRATOR";
-    public const string Officer = "OFFICER";
+    public const string WardOfficer = "WARD_OFFICER";
+    public const string DistrictOfficer = "DISTRICT_OFFICER";
+    public const string DeptOfficer = "DEPT_OFFICER";
 }

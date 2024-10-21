@@ -8,4 +8,5 @@ public class District : Entity
     public string DistrictName { get; set; }
     
     public List<Ward> Wards { get; set; }
+    public DistrictOfficer DistrictOfficer { get; set; }
 }

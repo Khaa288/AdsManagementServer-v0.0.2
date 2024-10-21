@@ -41,8 +41,8 @@ public class AuthController : ControllerBase
         });
     }
 
-    // [Authorize(Roles = RoleNames.DeptOfficer)]
-    // [HasPrivilege(PrivilegeNames.CreateOfficers)]
+    [Authorize(Roles = RoleNames.DeptOfficer)]
+    [HasPrivilege(PrivilegeNames.CreateOfficers)]
     [HttpPost("create-officer")]
     public async Task<IActionResult> CreateOfficer(CreateOfficerRequestDto request)
     {
@@ -64,7 +64,7 @@ public class AuthController : ControllerBase
         });
     }
     
-    // [Authorize]
+    [Authorize]
     [HttpPost("token/refresh")]
     public async Task<IActionResult> CreateNewAccessToken()
     {
@@ -74,19 +74,11 @@ public class AuthController : ControllerBase
         return Ok(new ApiResponse { StatusCode = HttpStatusCode.OK, Result = newAccessToken });
     }
     
-    // [Authorize]
+    [Authorize]
     [HttpPost("logout")]
     public async Task<IActionResult> Logout(LogoutRequestDto request)
     {
         await _authModule.ExecuteCommandAsync(new LogoutCommand(request.AccessToken));
         return Ok(new ApiResponse { StatusCode = HttpStatusCode.OK, Result = "Logged out successfully" });
     }
-    
-    // [Authorize]
-    // [HttpPost("forgot-password")]
-    // public async Task<IActionResult> RevokeToken(RevokeTokenRequestDto request)
-    // {
-    //     await _authModule.ExecuteCommandAsync(new RevokeTokenCommand(request.RefreshToken));
-    //     return Ok(new ApiResponse { StatusCode = HttpStatusCode.OK, Message = "Token revoked successfully" });
-    // }
 }

@@ -18,6 +18,6 @@ public class WardConfiguration : IEntityTypeConfiguration<Ward>
         builder
             .HasOne<District>(t => t.District)
             .WithMany(o => o.Wards)
-            .HasForeignKey(t =>t.WardId);
+            .HasForeignKey(t =>t.DistrictId);
     }
 }

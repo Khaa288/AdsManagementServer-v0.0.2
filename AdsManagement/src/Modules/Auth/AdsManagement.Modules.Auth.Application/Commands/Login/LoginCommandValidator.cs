@@ -1,11 +1,14 @@
-﻿using AdsManagement.Modules.Auth.Domain.Repositories;
+﻿using AdsManagement.Modules.Auth.Application.Cryptos;
+using AdsManagement.Modules.Auth.Domain.Repositories;
 using FluentValidation;
 
 namespace AdsManagement.Modules.Auth.Application.Commands;
 
 public class LoginCommandValidator : AbstractValidator<LoginCommand>
 {
-    public LoginCommandValidator(IAuthRepository authRepository)
+    public LoginCommandValidator(
+        IOfficerRepository officerRepository,
+        ICryptoService cryptoService)
     {
         RuleFor(x => x.Email)
             .NotEmpty()
@@ -14,9 +17,7 @@ public class LoginCommandValidator : AbstractValidator<LoginCommand>
             .WithMessage("Username must be an email address")
             .MustAsync(async (request, email, cancellation) =>
             {
-                var officer = await authRepository.GetOfficerWithRolesPrivilegesByEmailAsync(request.Email);
-
-                return officer is not null;
+                return await officerRepository.IsOfficerExistsByEmailAsync(request.Email);
             })
             .WithMessage("Account does not exists !");
 
@@ -25,15 +26,12 @@ public class LoginCommandValidator : AbstractValidator<LoginCommand>
             .WithMessage("Password cannot be empty")
             .MustAsync(async (request, password, cancellation) =>
             {
-                var officer = await authRepository.GetOfficerWithRolesPrivilegesByEmailAsync(request.Email);
+                var officer = await officerRepository.GetOfficerByEmailAsync(request.Email);
         
                 if (officer is null)
                     return false;
-                return officer!.PasswordHash == request.Password;
-                
-                // // PasswordHash validation will comeback later
-                // return BCrypt.Net.BCrypt.Verify(password, user!.Password);
+                return officer!.PasswordHash == cryptoService.HashPasswordWithSha256(request.Password);
             })
-            .WithMessage("Bad Credentials");
+            .WithMessage("Password not true");
     }
 }

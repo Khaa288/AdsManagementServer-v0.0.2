@@ -1,4 +1,5 @@
-﻿using AdsManagement.Modules.Auth.Infrastructure.Configuration.DataAccess;
+﻿using AdsManagement.Modules.Auth.Infrastructure.Configuration.Crypto;
+using AdsManagement.Modules.Auth.Infrastructure.Configuration.DataAccess;
 using AdsManagement.Modules.Auth.Infrastructure.Configuration.EventBus;
 using AdsManagement.Modules.Auth.Infrastructure.Configuration.Logging;
 using AdsManagement.Modules.Auth.Infrastructure.Configuration.Mediator;
@@ -52,7 +53,7 @@ public class Startup
         containerBuilder.RegisterModule(new ProcessingModule());
         containerBuilder.RegisterModule(new MediatorModule());
         containerBuilder.RegisterModule(new TokenModule(tokensConfiguration));
-        
+        containerBuilder.RegisterModule(new CryptoModule());
         // containerBuilder.RegisterModule(new EmailModule(emailsConfiguration));
 
         _container = containerBuilder.Build();

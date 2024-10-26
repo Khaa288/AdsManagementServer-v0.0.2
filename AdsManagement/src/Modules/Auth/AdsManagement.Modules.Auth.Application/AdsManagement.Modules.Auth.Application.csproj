@@ -18,4 +18,9 @@
       <PackageReference Include="FluentValidation" Version="11.10.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Constraints\Constants\" />
+      <Folder Include="Constraints\Enums\" />
+    </ItemGroup>
+
 </Project>

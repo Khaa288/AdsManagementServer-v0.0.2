@@ -9,5 +9,5 @@ public class Ward : Entity
     
     public int DistrictId { get; set; }
     public District District { get; set; }
-    public Officer Officer { get; set; }
+    public WardOfficer WardOfficer { get; set; }
 }

@@ -12,6 +12,7 @@ using AdsManagement.Modules.Report.Infrastructure.ReCaptcha;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Serilog;
+using HeaderConstraints = AdsManagement.BuildingBlocks.Application.Constraints.HeaderConstraints;
 using ILogger = Serilog.ILogger;
 
 var builder = WebApplication.CreateBuilder(args);

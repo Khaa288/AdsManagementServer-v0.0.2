@@ -2,10 +2,12 @@
 
 public class LoginResponse
 {
-    public LoginResponse(string token)
+    public LoginResponse(string access, string refresh)
     {
-        Token = token;
+        Access = access;
+        Refresh = refresh;
     }
 
-    public string Token { get; set; }
+    public string Access { get; set; }
+    public string Refresh { get; set; }
 }

@@ -10,6 +10,9 @@ namespace AdsManagement.Modules.Auth.Infrastructure.Database;
 public class AuthContext : DbContext
 {
     public DbSet<Officer> Officers { get; set; }
+    public DbSet<WardOfficer> WardOfficers { get; set; }
+    public DbSet<DistrictOfficer> DistrictOfficers { get; set; }
+    public DbSet<DeptOfficer> DeptOfficers { get; set; }
     public DbSet<Role> Roles { get; set; }
     public DbSet<Privilege> Privileges { get; set; }
     public DbSet<Ward> Wards { get; set; }
@@ -32,6 +35,9 @@ public class AuthContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfiguration(new OfficerConfiguration());
+        modelBuilder.ApplyConfiguration(new WardOfficerConfiguration());
+        modelBuilder.ApplyConfiguration(new DistrictOfficerConfiguration());
+        modelBuilder.ApplyConfiguration(new DeptOfficerConfiguration());
         modelBuilder.ApplyConfiguration(new RoleConfiguration());
         modelBuilder.ApplyConfiguration(new PrivilegeConfiguration());
         modelBuilder.ApplyConfiguration(new OtpConfiguration());

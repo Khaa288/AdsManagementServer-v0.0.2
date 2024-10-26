@@ -20,7 +20,7 @@ public class RefreshTokenConfiguration : IEntityTypeConfiguration<RefreshToken>
 
         builder
             .HasOne<Officer>(t => t.Officer)
-            .WithMany(o => o.RefreshTokens)
-            .HasForeignKey(t =>t.OfficerId);
+            .WithOne()
+            .HasForeignKey<RefreshToken>(t =>t.OfficerId);
     }
 }
